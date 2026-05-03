@@ -24,8 +24,9 @@ from __future__ import annotations
 
 import os
 import time
+from typing import Any
 
-from app.llm.client import LLMClient
+from app.llm.client import LLMClient, LLMResponse
 from app.llm.prompt_loader import load_prompt
 from app.llm.tracing import Tracer
 from app.schemas.flight import FlightQuery, ResponseCritique, SearchOutcome
@@ -194,7 +195,7 @@ def _generate_draft(
 ) -> str:
     started = time.perf_counter()
     prompt = load_prompt(RESPONDER_PROMPT)
-    response = client.complete(
+    response: LLMResponse[Any] = client.complete(
         prompt=prompt,
         variables={
             "user_query": user_query,
@@ -287,7 +288,7 @@ def _revise(
         f"{issues_block}\n\n"
         f"[prior draft for context]\n{prior_draft}"
     )
-    response = client.complete(
+    response: LLMResponse[Any] = client.complete(
         prompt=prompt,
         variables={
             "user_query": augmented_query,

@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 import time
+from typing import Any
 
-from app.llm.client import LLMClient
+from app.llm.client import LLMClient, LLMResponse
 from app.llm.prompt_loader import load_prompt
 from app.llm.tracing import Tracer
 
@@ -26,7 +27,7 @@ def clarify(
     """
     started = time.perf_counter()
     prompt = load_prompt(PROMPT_NAME)
-    response = client.complete(
+    response: LLMResponse[Any] = client.complete(
         prompt=prompt,
         variables={
             "user_message": user_message,

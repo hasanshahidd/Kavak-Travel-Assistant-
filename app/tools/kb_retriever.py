@@ -27,6 +27,7 @@ import hashlib
 import json
 import re
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 
@@ -76,6 +77,7 @@ def chunk_markdown(text: str, *, doc: str) -> list[Chunk]:
                 doc=doc,
                 section=heading,
                 content=content,
+                score=None,
             )
         )
     return chunks
@@ -126,7 +128,7 @@ class KBRetriever:
         self.embeddings = embeddings or get_embeddings_client()
 
         self._chunks: list[Chunk] = []
-        self._matrix: np.ndarray | None = None  # shape (n_chunks, dim), L2-normalized
+        self._matrix: np.ndarray[Any, Any] | None = None  # shape (n_chunks, dim), L2-normalized
         self._loaded = False
 
     # ------- public API -------

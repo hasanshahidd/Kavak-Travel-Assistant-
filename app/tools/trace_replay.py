@@ -16,6 +16,7 @@ from __future__ import annotations
 import argparse
 import sys
 from pathlib import Path
+from typing import Any
 
 from rich.console import Console
 from rich.panel import Panel
@@ -107,11 +108,11 @@ def _render_trace(path: Path) -> int:
     return 0
 
 
-def _format_output(output: dict) -> str:
+def _format_output(output: dict[str, Any]) -> str:
     """Compact YAML-ish rendering, friendlier than raw JSON for humans."""
     lines: list[str] = []
 
-    def _walk(value, indent: int) -> None:
+    def _walk(value: Any, indent: int) -> None:
         prefix = "  " * indent
         if isinstance(value, dict):
             for k, v in value.items():
@@ -137,7 +138,7 @@ def _format_output(output: dict) -> str:
     return "\n".join(lines) if lines else "(no output)"
 
 
-def _short(v) -> str:
+def _short(v: Any) -> str:
     s = str(v)
     if len(s) > 240:
         s = s[:240] + "…"

@@ -81,7 +81,7 @@ def _load_index() -> tuple[dict[str, dict[str, object]], dict[str, set[str]]]:
         iata_upper = iata.upper()
         by_iata[iata_upper] = info
         # Index every alias including the IATA itself
-        for alias in {iata_upper.lower(), *info.get("aliases", [])}:  # type: ignore[misc]
+        for alias in {iata_upper.lower(), *info.get("aliases", [])}:
             by_alias.setdefault(alias.lower(), set()).add(iata_upper)
         # Also key by city name (lowercased)
         city = str(info.get("city", "")).lower()

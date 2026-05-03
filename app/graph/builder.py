@@ -248,16 +248,16 @@ def build_agent(substrate: AgentSubstrate | None = None) -> Any:
     """Compile the LangGraph agent. Returns a callable ``CompiledGraph``."""
     sub = substrate or default_substrate()
 
-    g: StateGraph = StateGraph(AgentState)
+    g: StateGraph[AgentState, None, AgentState, AgentState] = StateGraph(AgentState)
 
-    g.add_node("router", _router_node(sub))
-    g.add_node("extractor", _extractor_node(sub))
-    g.add_node("flight_search", _flight_search_node(sub))
-    g.add_node("responder", _responder_node(sub))
-    g.add_node("retriever", _retriever_node(sub))
-    g.add_node("answerer", _answerer_node(sub))
-    g.add_node("clarifier", _clarifier_node(sub))
-    g.add_node("out_of_scope", _out_of_scope_node(sub))
+    g.add_node("router", _router_node(sub))  # type: ignore[call-overload]
+    g.add_node("extractor", _extractor_node(sub))  # type: ignore[call-overload]
+    g.add_node("flight_search", _flight_search_node(sub))  # type: ignore[call-overload]
+    g.add_node("responder", _responder_node(sub))  # type: ignore[call-overload]
+    g.add_node("retriever", _retriever_node(sub))  # type: ignore[call-overload]
+    g.add_node("answerer", _answerer_node(sub))  # type: ignore[call-overload]
+    g.add_node("clarifier", _clarifier_node(sub))  # type: ignore[call-overload]
+    g.add_node("out_of_scope", _out_of_scope_node(sub))  # type: ignore[call-overload]
 
     g.add_edge(START, "router")
     g.add_conditional_edges(

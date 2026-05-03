@@ -30,7 +30,7 @@ from __future__ import annotations
 
 import time
 from dataclasses import dataclass, field
-from typing import Generic, Protocol, TypeVar, cast, runtime_checkable
+from typing import Generic, Protocol, TypeVar, runtime_checkable
 
 from pydantic import BaseModel, ValidationError
 from tenacity import (
@@ -213,7 +213,7 @@ class OpenAIClient:
             else:
                 parsed, completion = self._typed.chat.completions.create_with_completion(
                     model=model,
-                    messages=messages,
+                    messages=messages,  # type: ignore[arg-type]
                     response_model=response_model,
                     temperature=temp,
                     seed=self._default_seed,
@@ -320,7 +320,7 @@ class MockClient:
         # Use the prompt's declared model so cost tables stay consistent.
         model = prompt.frontmatter.model or "mock"
         return LLMResponse(
-            data=cast("T | str", data),
+            data=data,
             raw_text=raw_text,
             model=model,
             usage=usage,
@@ -394,7 +394,7 @@ class AnthropicClient:
                     messages=messages,  # type: ignore[arg-type]
                     temperature=temp,
                 )
-                raw_text = msg.content[0].text if msg.content else ""
+                raw_text = msg.content[0].text if msg.content else ""  # type: ignore[union-attr]
                 data: T | str = raw_text
                 usage = LLMUsage(
                     tokens_in=getattr(msg.usage, "input_tokens", 0) or 0,
@@ -404,12 +404,12 @@ class AnthropicClient:
                 parsed, msg = self._typed.messages.create_with_completion(
                     model=model,
                     max_tokens=2048,
-                    messages=messages,
+                    messages=messages,  # type: ignore[arg-type]
                     response_model=response_model,
                     temperature=temp,
                     max_retries=2,
                 )
-                raw_text = msg.content[0].text if msg.content else ""
+                raw_text = msg.content[0].text if msg.content else ""  # type: ignore[union-attr]
                 data = parsed
                 usage = LLMUsage(
                     tokens_in=getattr(msg.usage, "input_tokens", 0) or 0,

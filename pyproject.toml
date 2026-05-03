@@ -32,7 +32,14 @@ python_version = "3.11"
 strict = true
 ignore_missing_imports = true
 disallow_untyped_decorators = false
+warn_unused_ignores = false  # third-party SDK stubs vary between versions
 exclude = ["evals/results", ".faiss_index", ".traces"]
+
+# Third-party libraries with shifting type stubs - treat as untyped at the boundary.
+[[tool.mypy.overrides]]
+module = ["langgraph.*", "anthropic.*", "instructor.*", "yaml"]
+ignore_missing_imports = true
+follow_imports = "skip"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
