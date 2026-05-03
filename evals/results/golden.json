@@ -1,0 +1,182 @@
+{
+  "suite": "Golden",
+  "mode": "mock",
+  "ran_at": "2026-05-02T11:09:04.943313+00:00",
+  "pass_rate": 1.0,
+  "passed": 13,
+  "total": 13,
+  "total_latency_ms": 207.11,
+  "total_cost_usd": 0.005763,
+  "by_category": {
+    "routing": {
+      "passed": 4,
+      "total": 4,
+      "rate": 1.0
+    },
+    "extraction": {
+      "passed": 3,
+      "total": 3,
+      "rate": 1.0
+    },
+    "rag": {
+      "passed": 3,
+      "total": 3,
+      "rate": 1.0
+    },
+    "multi_turn": {
+      "passed": 2,
+      "total": 2,
+      "rate": 1.0
+    },
+    "refusal": {
+      "passed": 1,
+      "total": 1,
+      "rate": 1.0
+    }
+  },
+  "cases": [
+    {
+      "id": "G01",
+      "category": "routing",
+      "passed": true,
+      "intent": "flight_search",
+      "expected_intent": "flight_search",
+      "latency_ms": 57.9,
+      "cost_usd": 0.000737,
+      "tokens": 4583,
+      "failure_reason": null
+    },
+    {
+      "id": "G02",
+      "category": "routing",
+      "passed": true,
+      "intent": "policy_qa",
+      "expected_intent": "policy_qa",
+      "latency_ms": 12.73,
+      "cost_usd": 0.000131,
+      "tokens": 835,
+      "failure_reason": null
+    },
+    {
+      "id": "G03",
+      "category": "routing",
+      "passed": true,
+      "intent": "policy_qa",
+      "expected_intent": "policy_qa",
+      "latency_ms": 10.27,
+      "cost_usd": 0.000131,
+      "tokens": 834,
+      "failure_reason": null
+    },
+    {
+      "id": "G04",
+      "category": "routing",
+      "passed": true,
+      "intent": "out_of_scope",
+      "expected_intent": "out_of_scope",
+      "latency_ms": 13.37,
+      "cost_usd": 0.000427,
+      "tokens": 2727,
+      "failure_reason": null
+    },
+    {
+      "id": "G05",
+      "category": "extraction",
+      "passed": true,
+      "intent": "flight_search",
+      "expected_intent": "flight_search",
+      "latency_ms": 13.71,
+      "cost_usd": 0.000738,
+      "tokens": 4570,
+      "failure_reason": null
+    },
+    {
+      "id": "G06",
+      "category": "extraction",
+      "passed": true,
+      "intent": "flight_search",
+      "expected_intent": "flight_search",
+      "latency_ms": 12.6,
+      "cost_usd": 0.000714,
+      "tokens": 4419,
+      "failure_reason": null
+    },
+    {
+      "id": "G07",
+      "category": "extraction",
+      "passed": true,
+      "intent": "flight_search",
+      "expected_intent": "flight_search",
+      "latency_ms": 9.47,
+      "cost_usd": 0.000611,
+      "tokens": 3765,
+      "failure_reason": null
+    },
+    {
+      "id": "G08",
+      "category": "rag",
+      "passed": true,
+      "intent": "policy_qa",
+      "expected_intent": "policy_qa",
+      "latency_ms": 14.4,
+      "cost_usd": 0.000271,
+      "tokens": 1705,
+      "failure_reason": null
+    },
+    {
+      "id": "G09",
+      "category": "rag",
+      "passed": true,
+      "intent": "policy_qa",
+      "expected_intent": "policy_qa",
+      "latency_ms": 13.26,
+      "cost_usd": 0.000252,
+      "tokens": 1579,
+      "failure_reason": null
+    },
+    {
+      "id": "G10",
+      "category": "rag",
+      "passed": true,
+      "intent": "policy_qa",
+      "expected_intent": "policy_qa",
+      "latency_ms": 10.72,
+      "cost_usd": 0.000131,
+      "tokens": 837,
+      "failure_reason": null
+    },
+    {
+      "id": "G11",
+      "category": "multi_turn",
+      "passed": true,
+      "intent": "flight_search",
+      "expected_intent": "flight_search",
+      "latency_ms": 11.41,
+      "cost_usd": 0.000745,
+      "tokens": 4620,
+      "failure_reason": null
+    },
+    {
+      "id": "G12",
+      "category": "multi_turn",
+      "passed": true,
+      "intent": "flight_search",
+      "expected_intent": "flight_search",
+      "latency_ms": 13.4,
+      "cost_usd": 0.000745,
+      "tokens": 4628,
+      "failure_reason": null
+    },
+    {
+      "id": "G13",
+      "category": "refusal",
+      "passed": true,
+      "intent": "policy_qa",
+      "expected_intent": "policy_qa",
+      "latency_ms": 12.33,
+      "cost_usd": 0.00013,
+      "tokens": 833,
+      "failure_reason": null
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "DXB": { "city": "Dubai",          "country": "UAE",          "aliases": ["dubai", "dxb"] },
+  "AUH": { "city": "Abu Dhabi",      "country": "UAE",          "aliases": ["abu dhabi", "auh"] },
+  "NRT": { "city": "Tokyo",          "country": "Japan",        "aliases": ["tokyo", "narita", "nrt", "hnd"] },
+  "HND": { "city": "Tokyo",          "country": "Japan",        "aliases": ["tokyo", "haneda", "hnd"] },
+  "LHR": { "city": "London",         "country": "UK",           "aliases": ["london", "heathrow", "lhr", "lon"] },
+  "CDG": { "city": "Paris",          "country": "France",       "aliases": ["paris", "charles de gaulle", "cdg"] },
+  "FRA": { "city": "Frankfurt",      "country": "Germany",      "aliases": ["frankfurt", "fra"] },
+  "AMS": { "city": "Amsterdam",      "country": "Netherlands",  "aliases": ["amsterdam", "schiphol", "ams"] },
+  "IST": { "city": "Istanbul",       "country": "Turkey",       "aliases": ["istanbul", "ist"] },
+  "BKK": { "city": "Bangkok",        "country": "Thailand",     "aliases": ["bangkok", "bkk"] },
+  "SIN": { "city": "Singapore",      "country": "Singapore",    "aliases": ["singapore", "sin"] },
+  "SYD": { "city": "Sydney",         "country": "Australia",    "aliases": ["sydney", "syd"] },
+  "JFK": { "city": "New York",       "country": "USA",          "aliases": ["new york", "nyc", "jfk", "ny"] },
+  "EWR": { "city": "New York",       "country": "USA",          "aliases": ["new york", "newark", "nyc", "ewr"] },
+  "LGA": { "city": "New York",       "country": "USA",          "aliases": ["new york", "laguardia", "nyc", "lga"] },
+  "BOM": { "city": "Mumbai",         "country": "India",        "aliases": ["mumbai", "bombay", "bom"] },
+  "DEL": { "city": "Delhi",          "country": "India",        "aliases": ["delhi", "new delhi", "del"] },
+  "KUL": { "city": "Kuala Lumpur",   "country": "Malaysia",     "aliases": ["kuala lumpur", "kl", "kul"] },
+  "HKG": { "city": "Hong Kong",      "country": "Hong Kong",    "aliases": ["hong kong", "hkg"] }
+}

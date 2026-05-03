@@ -1,0 +1,36 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# --- Env & secrets ---
+.env
+.env.local
+.env.*.local
+
+# --- Project artifacts ---
+.faiss_index/
+.traces/
+.eval_cache/
+evals/results/.cache/
+evals/results/_traces/
+*.log
+*.jsonl.tmp
+
+# --- IDE / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
