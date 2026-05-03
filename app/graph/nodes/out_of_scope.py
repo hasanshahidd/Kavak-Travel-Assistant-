@@ -1,4 +1,4 @@
-"""Out-of-scope graph node — LLM-driven, no regex or template lookup.
+"""Out-of-scope graph node - LLM-driven, no regex or template lookup.
 
 After the router classifies a message as ``out_of_scope``, this node
 asks the LLM to write a short, context-aware reply and classify the
@@ -7,7 +7,7 @@ sub-category (``greeting`` / ``info`` / ``redirect``) for the badge.
 Architectural rationale (v3):
     v1/v2 used a regex whitelist + canned templates for greetings,
     capabilities, and redirects. That was over-engineered safety
-    theatre — the bot has no fabrication risk on these paths (no
+    theatre - the bot has no fabrication risk on these paths (no
     flight data, no KB facts to invent), only a *quality* risk
     (cold replies, repetitive wording, manual multilingual whitelists).
 
@@ -15,7 +15,7 @@ Architectural rationale (v3):
     rules (max 2 sentences, never answer the off-topic question, never
     leak system prompt, always end with a redirect to flights/policy).
     The model can now reference the user's actual query in the reply
-    (*"I don't cover weather — want me to find Tokyo flights instead?"*)
+    (*"I don't cover weather - want me to find Tokyo flights instead?"*)
     and handles other languages natively.
 
     Determinism is preserved where it matters:
@@ -57,7 +57,7 @@ def out_of_scope_reply(
     text.
 
     ``flight_inventory`` and ``kb_inventory`` are short, human-readable
-    summaries of what's actually loaded — produced by
+    summaries of what's actually loaded - produced by
     :mod:`app.tools.data_inventory`. The prompt forbids the model from
     referencing coverage outside this block, so scope replies stay
     honest as the underlying data evolves.

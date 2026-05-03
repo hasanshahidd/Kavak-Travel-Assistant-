@@ -1,4 +1,4 @@
-"""KB retriever tests — chunking, indexing, threshold gate, cache reuse."""
+"""KB retriever tests - chunking, indexing, threshold gate, cache reuse."""
 
 from __future__ import annotations
 
@@ -64,7 +64,7 @@ def test_chunker_skips_empty_sections() -> None:
 
 
 def test_chunker_chunk_id_is_deterministic_slug() -> None:
-    md = "## UAE passport — Japan\n\nContent."
+    md = "## UAE passport - Japan\n\nContent."
     chunks = chunk_markdown(md, doc="visa_rules.md")
     assert chunks[0].id == "visa_rules.md#uae-passport-japan"
 
@@ -97,7 +97,7 @@ def test_kb_content_hash_changes_when_content_changes(tmp_path: Path) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Retriever — search behaviour
+# Retriever - search behaviour
 # ---------------------------------------------------------------------------
 
 
@@ -118,7 +118,7 @@ def test_retriever_finds_relevant_chunk_for_uae_japan_visa(retriever: KBRetrieve
     assert results, "expected at least one match"
     top = results[0]
     assert top.doc == "visa_rules.md"
-    assert "UAE passport — Japan" in top.section or "japan" in top.section.lower()
+    assert "UAE passport - Japan" in top.section or "japan" in top.section.lower()
     assert top.score is not None and top.score > 0
 
 

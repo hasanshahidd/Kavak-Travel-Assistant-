@@ -1,4 +1,4 @@
-"""Kavak Travel Assistant — CLI entry point.
+"""Kavak Travel Assistant - CLI entry point.
 
 Spec-required entry. Two modes:
 
@@ -90,7 +90,7 @@ def _render_trace(tracer: Tracer) -> None:
         table.add_row(
             str(i),
             ev.node,
-            ev.prompt_id or "—",
+            ev.prompt_id or "-",
             f"{ev.latency_ms:.0f}",
             str(ev.tokens_in),
             str(ev.tokens_out),
@@ -181,7 +181,7 @@ def run_repl(agent) -> None:
     last_tracer: Tracer | None = None
     while True:
         try:
-            line = console.input("[bold cyan]you ›[/bold cyan] ").strip()  # noqa: RUF001 — typographic right-pointing arrow used as prompt glyph
+            line = console.input("[bold cyan]you ›[/bold cyan] ").strip()  # noqa: RUF001 - typographic right-pointing arrow used as prompt glyph
         except (EOFError, KeyboardInterrupt):
             console.print("\n[dim]goodbye.[/dim]")
             return
@@ -215,7 +215,7 @@ def run_repl(agent) -> None:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="kavak-travel-assistant",
-        description="Conversational travel assistant — flights, visas, refunds.",
+        description="Conversational travel assistant - flights, visas, refunds.",
     )
     parser.add_argument(
         "--demo",

@@ -23,7 +23,7 @@ class TripType(StrEnum):
 
 
 # ---------------------------------------------------------------------------
-# FlightQuery — what the extractor produces
+# FlightQuery - what the extractor produces
 # ---------------------------------------------------------------------------
 
 
@@ -66,7 +66,7 @@ class FlightQuery(BaseModel):
         description=(
             "Alliances the user explicitly does NOT want. e.g. user says "
             "'not Star Alliance' or 'no SkyTeam' → ['Star Alliance']. "
-            "Hard exclusion — flights matching any of these alliances are "
+            "Hard exclusion - flights matching any of these alliances are "
             "filtered out before ranking."
         ),
     )
@@ -119,7 +119,7 @@ class FlightQuery(BaseModel):
         description=(
             "Ranking axis. 'best' (default) uses the composite score that "
             "balances price + layover quality + refundability. 'price' sorts "
-            "by raw price ascending — set this when the user explicitly asks "
+            "by raw price ascending - set this when the user explicitly asks "
             "for the cheapest / lowest price / under-N-dollars."
         ),
     )
@@ -145,7 +145,7 @@ class FlightQuery(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# Flight — a row from data/flights.json
+# Flight - a row from data/flights.json
 # ---------------------------------------------------------------------------
 
 
@@ -195,7 +195,7 @@ class Flight(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# FlightResult — what the responder formats for the user
+# FlightResult - what the responder formats for the user
 # ---------------------------------------------------------------------------
 
 
@@ -221,7 +221,7 @@ class FlightResult(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# SearchOutcome — what the flight tool returns to the responder
+# SearchOutcome - what the flight tool returns to the responder
 # ---------------------------------------------------------------------------
 
 
@@ -266,7 +266,7 @@ class SearchOutcome(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# ResponseCritique — output of the self-critique step on the flight responder
+# ResponseCritique - output of the self-critique step on the flight responder
 # ---------------------------------------------------------------------------
 
 

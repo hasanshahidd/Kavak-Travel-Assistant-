@@ -2,16 +2,16 @@
 
 > Three honest failure modes with the recovery designed for each.
 > Showing what the bot can't do and how it fails gracefully is a deliberate
-> design choice — silent best-effort behaviour is the worst outcome a
+> design choice - silent best-effort behaviour is the worst outcome a
 > travel-policy assistant can have.
 
 ---
 
-## Failure 1 — Mock embeddings can't reliably surface the right KB chunk
+## Failure 1 - Mock embeddings can't reliably surface the right KB chunk
 
 ### What goes wrong
 The mock embeddings client is a deterministic hash-based bag-of-words
-(see [`app/llm/embeddings.py`](../app/llm/embeddings.py) — `MockEmbeddingsClient`).
+(see [`app/llm/embeddings.py`](../app/llm/embeddings.py) - `MockEmbeddingsClient`).
 It exists so the demo runs offline. For short queries with sparse
 vocabulary overlap, the cosine similarity score against the right KB
 chunk can fall below the 0.5 relevance threshold.
@@ -33,7 +33,7 @@ small set of common routes.
   low, the answerer takes the structural-refusal path instead of
   hallucinating.
 - **Real OpenAI embeddings (text-embedding-3-small) handle short
-  queries fine** — this only manifests in mock mode.
+  queries fine** - this only manifests in mock mode.
 - The refusal phrasing tells the user what topics ARE covered, so they
   can rephrase: *"Do UAE passport holders need a visa for Japan?"*
   retrieves correctly even with mock embeddings.
@@ -46,7 +46,7 @@ which is the right behaviour.
 
 ---
 
-## Failure 2 — Single-turn typo in destination
+## Failure 2 - Single-turn typo in destination
 
 ### What goes wrong
 User types *"flights to Tokio"* (typo for Tokyo). The IATA alias map
@@ -67,11 +67,11 @@ international destination.
 ### Why this is acceptable
 The diagnostic is more useful than a silent empty result. The bot
 explicitly tells the user *what it didn't recognise*, which gives them
-the information needed to retry — instead of producing zero matches
+the information needed to retry - instead of producing zero matches
 and leaving the user to guess what went wrong.
 
 ### What we could do better
-- A fuzzy-match fallback ("did you mean Tokyo?") — out of scope for
+- A fuzzy-match fallback ("did you mean Tokyo?") - out of scope for
   the project but a one-line addition to `app/utils/airports.py`.
 - Currently the only typo-tolerance is the alias map (Bombay → BOM,
   NYC → JFK/EWR/LGA). Real production would add an edit-distance
@@ -79,12 +79,12 @@ and leaving the user to guess what went wrong.
 
 ---
 
-## Failure 3 — Conflicting hard constraints
+## Failure 3 - Conflicting hard constraints
 
 ### What goes wrong
 User specifies constraints that no flight in the dataset can satisfy,
 where the conflicting constraint is **hard** (price, refundability,
-date) — soft-constraint relaxation can't help because relaxation only
+date) - soft-constraint relaxation can't help because relaxation only
 drops *soft* preferences.
 
 ### What the user sees
@@ -107,7 +107,7 @@ higher prices?
   would either feel ignored ("I said under $200") or trust the bot
   less.
 - Surfacing the constraint that blocks search is honest *and*
-  actionable — the user can either accept the relaxation or pick a
+  actionable - the user can either accept the relaxation or pick a
   different route.
 
 ### Trace evidence
@@ -123,11 +123,11 @@ re-phrased by the model.
 
 Each one demonstrates a designed property:
 
-- **Failure 1** — relevance threshold gate prevents hallucination by
+- **Failure 1** - relevance threshold gate prevents hallucination by
   forcing refusal when retrieval is weak.
-- **Failure 2** — alias-map gap surfaces honestly with a useful error
+- **Failure 2** - alias-map gap surfaces honestly with a useful error
   message rather than silently returning empty results.
-- **Failure 3** — hard-constraint conflicts get diagnosed by the tool
+- **Failure 3** - hard-constraint conflicts get diagnosed by the tool
   and surfaced as actionable follow-ups, not silently relaxed.
 
 The unifying principle: **silent best-effort matching is worse than an

@@ -2,19 +2,19 @@
 
 > Effective 2026-01-01. Allowances vary by airline and fare class; the limits below apply to standard economy bookings unless noted.
 
-## Cabin baggage — Economy
+## Cabin baggage - Economy
 
 Economy passengers are permitted one piece of cabin baggage up to 7 kg with maximum dimensions of 55 x 38 x 20 cm. One small personal item, such as a laptop bag or handbag, may also be carried in addition.
 
-## Cabin baggage — Business and First
+## Cabin baggage - Business and First
 
 Business and First class passengers may carry two cabin bags totalling 14 kg, plus a personal item. Dimensions must not exceed 55 x 38 x 20 cm per bag.
 
-## Checked baggage — Economy
+## Checked baggage - Economy
 
 Standard Economy fares include one checked bag up to 23 kg. Light Economy fares do not include checked baggage and one bag must be purchased separately at USD 60 per leg. Excess weight is charged at USD 25 per kilogram up to 32 kg per piece.
 
-## Checked baggage — Business and First
+## Checked baggage - Business and First
 
 Business class includes two checked bags up to 32 kg each. First class includes three checked bags up to 32 kg each. Additional bags are charged at USD 200 per piece.
 

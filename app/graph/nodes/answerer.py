@@ -1,12 +1,12 @@
-"""Answerer graph node — composes a verified ``RagAnswer`` from chunks.
+"""Answerer graph node - composes a verified ``RagAnswer`` from chunks.
 
 Wires together every Block 1-3 substrate:
 
-* :func:`app.llm.prompt_loader.load_prompt` — loads ``rag_answer.md`` (Block 3)
-* :class:`app.llm.client.LLMClient`        — provider-agnostic call (Block 2)
-* :func:`app.llm.verifier.verify_citations` — citation verification (Block 4)
-* :class:`app.llm.tracing.Tracer`          — observability (Block 2)
-* :class:`app.schemas.rag.RagAnswer`       — strict typed output (Block 1)
+* :func:`app.llm.prompt_loader.load_prompt` - loads ``rag_answer.md`` (Block 3)
+* :class:`app.llm.client.LLMClient`        - provider-agnostic call (Block 2)
+* :func:`app.llm.verifier.verify_citations` - citation verification (Block 4)
+* :class:`app.llm.tracing.Tracer`          - observability (Block 2)
+* :class:`app.schemas.rag.RagAnswer`       - strict typed output (Block 1)
 
 The function is intentionally a single readable flow: format chunks for the
 prompt, call the model, verify citations, log the result. No hidden state.
@@ -29,11 +29,11 @@ def _format_chunks_for_prompt(chunks: list[Chunk]) -> str:
     """Render retrieved chunks as a numbered, doc-tagged block for the prompt.
 
     Format chosen so the model can reference chunks naturally and cite the
-    correct ``doc`` filename — matches the contract the rag_answer.md prompt
+    correct ``doc`` filename - matches the contract the rag_answer.md prompt
     sets up (citations must reference real docs).
     """
     if not chunks:
-        return "[no chunks retrieved — refusal path]"
+        return "[no chunks retrieved - refusal path]"
     lines: list[str] = []
     for i, c in enumerate(chunks, start=1):
         score_label = f"score={c.score:.3f}" if c.score is not None else "score=n/a"
@@ -62,7 +62,7 @@ def answer(
       3. **LLM fails validation** → propagated up; the caller decides.
 
     ``conversation_summary``, when provided, is passed to the LLM as
-    *interpretation context only* — the prompt requires every factual
+    *interpretation context only* - the prompt requires every factual
     claim to be grounded in chunks. This bridges the case where the
     user's raw message is short ("tell me on Tokyo") and only makes sense
     relative to the prior turn ("what visas do you cover").

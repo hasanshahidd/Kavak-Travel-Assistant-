@@ -1,7 +1,7 @@
-"""Kavak Travel Assistant — Streamlit web UI.
+"""Kavak Travel Assistant - Streamlit web UI.
 
 Optional per the submission spec, shipped because this is where the
-**live agent trace sidebar** lives — the differentiator that lets a
+**live agent trace sidebar** lives - the differentiator that lets a
 reviewer watch the agent reason in real time: routed intent, extracted
 filters, retrieved chunks with relevance scores, prompt versions, and
 per-turn cost rollup.
@@ -29,13 +29,13 @@ st.set_page_config(
 )
 
 
-# Each badge is (label, accent-colour). No emoji — colour + lowercase text
+# Each badge is (label, accent-colour). No emoji - colour + lowercase text
 # does the visual work without the noise of decorative glyphs.
 _INTENT_BADGE = {
     Intent.FLIGHT_SEARCH: ("flight search", "#0284c7"),
     Intent.POLICY_QA: ("policy", "#7c3aed"),
     Intent.CLARIFY: ("clarify", "#b45309"),
-    # Fallback only — the OOS sub-category badges below are preferred.
+    # Fallback only - the OOS sub-category badges below are preferred.
     # Used when the trace doesn't carry a sub-category (legacy traces or
     # the rare case where the OOS node never emitted an event).
     Intent.OUT_OF_SCOPE: ("off topic", "#475569"),
@@ -46,9 +46,9 @@ _INTENT_BADGE = {
 # These badges surface that decision in the UI so the user sees what
 # actually happened (info-grounded reply vs friendly ack vs decline)
 # instead of the unhelpful umbrella "out of scope" label.
-_INFO_BADGE = ("info", "#0d9488")  # teal — capability / meta query
-_GREETING_BADGE = ("greeting", "#16a34a")  # green — friendly ack
-_REDIRECT_BADGE = ("off topic", "#475569")  # gray — declined off-domain
+_INFO_BADGE = ("info", "#0d9488")  # teal - capability / meta query
+_GREETING_BADGE = ("greeting", "#16a34a")  # green - friendly ack
+_REDIRECT_BADGE = ("off topic", "#475569")  # gray - declined off-domain
 
 
 # Light, designer-y page styling. Loaded once.
@@ -156,7 +156,7 @@ settings = get_settings()
 
 
 # ---------------------------------------------------------------------------
-# Sidebar — trace inspector + runtime info
+# Sidebar - trace inspector + runtime info
 # ---------------------------------------------------------------------------
 
 
@@ -222,13 +222,13 @@ with st.sidebar:
 
 
 # ---------------------------------------------------------------------------
-# Main column — chat
+# Main column - chat
 # ---------------------------------------------------------------------------
 
 
 st.title("Kavak Travel Assistant")
 st.caption(
-    "Flight search, visa & refund Q&A, and multi-turn refinement — "
+    "Flight search, visa & refund Q&A, and multi-turn refinement - "
     "built on LangGraph with citation-by-construction RAG."
 )
 

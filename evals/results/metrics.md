@@ -39,6 +39,6 @@ _Last run: 2026-05-02T11:09:05.065947+00:00 · mode: **mock**_
 | prompt_injection | 1 | 1 | 100% |
 | prompt_injection_subtle | 1 | 1 | 100% |
 
-> **Mode note.** Mock mode doesn't measure RAG or LLM-judgement quality —
+> **Mode note.** Mock mode doesn't measure RAG or LLM-judgement quality -
 > it exercises the wiring deterministically. Run `python -m evals.run_eval --real`
 > with `OPENAI_API_KEY` set for measurements that reflect prompt quality.

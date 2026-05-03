@@ -11,7 +11,7 @@ Proves Block 5 wires together with everything before it:
   Block 5 graph nodes   → ``search_flights`` + ``respond``
 
 If any layer breaks, this test fails. Mirrors the structure of
-test_rag_integration.py — same proof pattern for the flight side.
+test_rag_integration.py - same proof pattern for the flight side.
 """
 
 from __future__ import annotations
@@ -52,7 +52,7 @@ def test_full_flight_path_spec_example(index: FlightIndex, tracer: Tracer) -> No
     # Step 1: search
     outcome = search_flights(query=query, index=index, tracer=tracer)
     assert outcome.results, "spec query must return matches"
-    assert outcome.relaxed_constraints == []  # exact match — no relaxation
+    assert outcome.relaxed_constraints == []  # exact match - no relaxation
     # Every result respects the constraints
     for r in outcome.results:
         assert r.flight.alliance == "Star Alliance"
@@ -102,7 +102,7 @@ def test_relaxation_path_to_paris(index: FlightIndex, tracer: Tracer) -> None:
 
 
 def test_no_results_path_includes_diagnosis(index: FlightIndex, tracer: Tracer) -> None:
-    """Atlantis isn't in the dataset — outcome must include a useful no_results_reason."""
+    """Atlantis isn't in the dataset - outcome must include a useful no_results_reason."""
     query = FlightQuery(
         origin="Dubai", destination="Atlantis", departure_date=date(2026, 8, 1)
     )

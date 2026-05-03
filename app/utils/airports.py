@@ -2,18 +2,18 @@
 
 Two queries the rest of the codebase needs:
 
-1. **resolve(text) -> IATA | None** — "Tokyo" → "NRT", "bombay" → "BOM",
+1. **resolve(text) -> IATA | None** - "Tokyo" → "NRT", "bombay" → "BOM",
    already-an-IATA "DXB" → "DXB". Used when the user gives a city name and
    we need a single canonical airport for ranking.
 
-2. **expand(text) -> set[IATA]** — "New York" → {"JFK", "EWR", "LGA"},
+2. **expand(text) -> set[IATA]** - "New York" → {"JFK", "EWR", "LGA"},
    "Tokyo" → {"NRT", "HND"}. Used by the flight matcher so a search for
    "to New York" matches flights to any NYC airport.
 
 The resolver is case-insensitive, punctuation-tolerant, and falls back to
 the input unchanged if it already looks like an IATA code (3 uppercase
 letters). Anything truly unknown returns ``None`` from ``resolve`` and an
-empty set from ``expand`` — callers can decide how to handle that.
+empty set from ``expand`` - callers can decide how to handle that.
 """
 
 from __future__ import annotations
@@ -27,7 +27,7 @@ from app.config import get_settings
 _IATA_PATTERN = re.compile(r"^[A-Z]{3}$")
 
 # Country-name synonyms so common phrasings resolve to the country's airports.
-# Keep small and conservative — every entry needs a real-world reason to exist.
+# Keep small and conservative - every entry needs a real-world reason to exist.
 # Maps free-text → the canonical `country` value used in airports.json.
 _COUNTRY_SYNONYMS: dict[str, str] = {
     "uae": "UAE",
@@ -62,7 +62,7 @@ def _load_index() -> tuple[dict[str, dict[str, object]], dict[str, set[str]]]:
       4. The ``country`` field ("UAE" → DXB and AUH)
 
     Country-level aliasing makes "flights from UAE to Tokyo" resolve to
-    DXB/AUH automatically — country is real data already present, the
+    DXB/AUH automatically - country is real data already present, the
     user just used a country name instead of a city. Plus the synonym
     map above handles common phrasings like "United Arab Emirates".
     """
@@ -87,7 +87,7 @@ def _load_index() -> tuple[dict[str, dict[str, object]], dict[str, set[str]]]:
         city = str(info.get("city", "")).lower()
         if city:
             by_alias.setdefault(city, set()).add(iata_upper)
-        # And by country name + its synonyms — so "UAE" / "United Arab
+        # And by country name + its synonyms - so "UAE" / "United Arab
         # Emirates" both resolve to {DXB, AUH}.
         country = str(info.get("country", "")).strip()
         if country:
@@ -148,7 +148,7 @@ def country_for_city(text: str) -> str | None:
     """Map a city name (or IATA) to its country. ``Tokyo`` → ``Japan``.
 
     Returns ``None`` if the input doesn't resolve. Used by the RAG
-    retriever to bridge the city/country gap in the embedding space —
+    retriever to bridge the city/country gap in the embedding space -
     the KB talks about *Japan*, the user types *Tokyo*; this helps the
     similarity score clear the relevance threshold.
     """

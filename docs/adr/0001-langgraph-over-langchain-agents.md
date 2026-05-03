@@ -1,4 +1,4 @@
-# ADR 0001 — LangGraph over LangChain agent executor
+# ADR 0001 - LangGraph over LangChain agent executor
 
 **Date:** 2026-05-02
 **Status:** Accepted
@@ -8,10 +8,10 @@
 The spec says "incorporate LangChain or LangGraph". Both can drive a
 travel assistant. They have different ergonomics:
 
-* **LangChain `AgentExecutor`** — opinionated tool-calling loop, ReAct-style.
+* **LangChain `AgentExecutor`** - opinionated tool-calling loop, ReAct-style.
   The model decides which tool to call next based on a system prompt; the
   framework parses the model's text and routes accordingly.
-* **LangGraph `StateGraph`** — explicit state-machine. The developer wires
+* **LangGraph `StateGraph`** - explicit state-machine. The developer wires
   up nodes and conditional edges; the model's only role is the inference
   inside each node.
 
@@ -32,7 +32,7 @@ functions of `(inputs) -> typed-output` and adapt them to LangGraph's
 1. **Explicit topology beats implicit routing.** With LangGraph, the
    topology is a 50-line file ([`builder.py`](../../app/graph/builder.py))
    that a reviewer can read in one screen. With AgentExecutor, the
-   routing logic lives inside the model's head and tool-calling loops —
+   routing logic lives inside the model's head and tool-calling loops -
    harder to inspect, test, or debug.
 
 2. **Conditional edges make memory + clarification trivial.** Branching
@@ -49,18 +49,18 @@ functions of `(inputs) -> typed-output` and adapt them to LangGraph's
 
 4. **The trace is graph-shaped.** Every node emits a trace event. Reading
    them back in order reconstructs the agent's decisions. With agent
-   executor the trace is a flat tool-call log — same data, less structure.
+   executor the trace is a flat tool-call log - same data, less structure.
 
 ## Alternatives considered
 
-* **LangChain AgentExecutor** — rejected per the analysis above. ReAct loops
+* **LangChain AgentExecutor** - rejected per the analysis above. ReAct loops
   are excellent when you don't know the toolset in advance, but our four
   intents are known.
-* **Hand-rolled routing** (no framework) — tempting for a small project.
+* **Hand-rolled routing** (no framework) - tempting for a small project.
   Rejected because the spec specifically names LangChain or LangGraph,
   and LangGraph's `StateGraph` is small enough that "use a framework"
   isn't a complexity overhead here.
-* **Multi-agent with delegation** — overkill. Single-agent with branching
+* **Multi-agent with delegation** - overkill. Single-agent with branching
   is the right complexity level for the scope.
 
 ## Consequences

@@ -1,4 +1,4 @@
-"""Intent classification — output of the router node.
+"""Intent classification - output of the router node.
 
 Kept deliberately small: a single enum + a thin wrapper so the router prompt
 can target a tiny JSON shape (1-token classifications are fast and cheap).
@@ -21,7 +21,7 @@ class Intent(StrEnum):
 
 
 class RouterOutput(BaseModel):
-    """Strict router contract — model returns exactly this shape."""
+    """Strict router contract - model returns exactly this shape."""
 
     intent: Intent
     rationale: str = Field(

@@ -1,4 +1,4 @@
-"""200 NEW diverse queries — comprehensive live UAT.
+"""200 NEW diverse queries - comprehensive live UAT.
 
 Different from uat_full.py (which had 128 queries grouped by scenario).
 This set focuses on real-world phrasing variety, intelligence checks,
@@ -22,7 +22,7 @@ from app.graph.builder import build_agent, default_substrate  # noqa: E402
 from app.llm.tracing import Tracer  # noqa: E402
 from app.memory.conversation import Conversation  # noqa: E402
 
-# 200 NEW queries — mostly different from uat_full.py
+# 200 NEW queries - mostly different from uat_full.py
 QUERIES: list[tuple[str, str, str, str | None]] = [
     # ===== Greetings (10) =====
     ("greet/hey",          "hey",                 "out_of_scope", "greeting"),
@@ -72,7 +72,7 @@ QUERIES: list[tuple[str, str, str, str | None]] = [
     ("scope/b/oversize",   "do you cover oversized luggage",         "out_of_scope", "info"),
     ("scope/b/sports kit", "what sports equipment baggage do you cover","out_of_scope","info"),
 
-    # ===== Destination scope — known (8) =====
+    # ===== Destination scope - known (8) =====
     ("scope/d/sin",        "do you fly to Singapore",                "out_of_scope", "info"),
     ("scope/d/mum",        "do you fly to Mumbai",                   "out_of_scope", "info"),
     ("scope/d/del",        "do you fly to Delhi",                    "out_of_scope", "info"),
@@ -82,14 +82,14 @@ QUERIES: list[tuple[str, str, str, str | None]] = [
     ("scope/d/ams",        "do you fly to Amsterdam",                "out_of_scope", "info"),
     ("scope/d/hkg",        "do you fly to Hong Kong",                "out_of_scope", "info"),
 
-    # ===== Destination scope — unknown (5) =====
+    # ===== Destination scope - unknown (5) =====
     ("scope/d/atlantis",   "do you fly to Atlantis",                 "out_of_scope", "redirect"),
     ("scope/d/hogwarts",   "do you fly to Hogwarts",                 "out_of_scope", "redirect"),
     ("scope/d/moon",       "do you fly to the moon",                 "out_of_scope", "redirect"),
     ("scope/d/cape town",  "do you fly to Cape Town",                "out_of_scope", "redirect"),
     ("scope/d/moscow",     "do you fly to Moscow",                   "out_of_scope", "redirect"),
 
-    # ===== Flight search — variety (15) =====
+    # ===== Flight search - variety (15) =====
     ("flight/dxb-bkk-nov", "Dubai to Bangkok in November",           "flight_search", None),
     ("flight/mum-sin",     "Mumbai to Singapore next month",         "flight_search", None),
     ("flight/lon-tok-feb", "London to Tokyo in February",            "flight_search", None),
@@ -106,7 +106,7 @@ QUERIES: list[tuple[str, str, str, str | None]] = [
     ("flight/ist-jfk",     "Istanbul to JFK in August",              "flight_search", None),
     ("flight/dxb-bkk-jun", "Dubai to Bangkok in June",               "flight_search", None),
 
-    # ===== Flight search — preferences (10) =====
+    # ===== Flight search - preferences (10) =====
     ("pref/star alliance", "Dubai to Tokyo Star Alliance only",      "flight_search", None),
     ("pref/oneworld",      "Dubai to Tokyo OneWorld",                "flight_search", None),
     ("pref/skyteam",       "Dubai to Paris SkyTeam",                 "flight_search", None),
@@ -147,7 +147,7 @@ QUERIES: list[tuple[str, str, str, str | None]] = [
     ("nr/bkk-ny direct",   "Bangkok to NY direct",                   "flight_search", None),
     ("nr/dxb-tok-200",     "Dubai to Tokyo under $200",              "flight_search", None),
 
-    # ===== Visa policy Q&A (15) — tests v11 KB expansion =====
+    # ===== Visa policy Q&A (15) - tests v11 KB expansion =====
     ("vqa/uae-japan",      "Do UAE passport holders need a visa for Japan?","policy_qa", None),
     ("vqa/uae-uk",         "Visa rule UAE passport for UK",          "policy_qa", None),
     ("vqa/uae-aus",        "Visa for Australia from UAE",            "policy_qa", None),
@@ -229,7 +229,7 @@ QUERIES: list[tuple[str, str, str, str | None]] = [
     ("edge/whitespace",    "flights    from    Dubai    to    Tokyo","flight_search", None),
     ("edge/from to",       "from Dubai to Tokyo",                    "flight_search", None),
     ("edge/to from",       "to Tokyo from Dubai",                    "flight_search", None),
-    ("edge/em dash",       "Dubai—Tokyo",                            "flight_search", None),
+    ("edge/em dash",       "Dubai-Tokyo",                            "flight_search", None),
     ("edge/slash",         "Dubai/Tokyo flights",                    "flight_search", None),
     ("edge/iata mix",      "DXB to Tokyo",                           "flight_search", None),
     ("edge/bombay-mum",    "Bombay to NY",                           "flight_search", None),
@@ -353,7 +353,7 @@ def main() -> int:
         print(f"[{verdict:5}] {i:3}/200 {label:25} -> {row['intent']}{cat} {row['latency_ms']:.0f}ms", flush=True)
 
     print()
-    print(f"# UAT-200 Scorecard — {pass_count}/200 pass ({100*pass_count/200:.1f}%)")
+    print(f"# UAT-200 Scorecard - {pass_count}/200 pass ({100*pass_count/200:.1f}%)")
     print(f"- Total latency: {total_latency/1000:.1f}s")
     print(f"- Avg latency/query: {total_latency/200:.0f}ms")
     print()

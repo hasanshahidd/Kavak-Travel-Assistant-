@@ -4,7 +4,7 @@ Cover the contract that the rest of the agent depends on:
 
 * Frontmatter is parsed and validated strictly.
 * Body hashing is deterministic and excludes frontmatter.
-* Variable rendering is explicit — missing vars raise instead of silently
+* Variable rendering is explicit - missing vars raise instead of silently
   producing a malformed prompt the LLM has to deal with.
 * Real on-disk prompts (router.md) load cleanly.
 """
@@ -100,7 +100,7 @@ def test_empty_body_rejected() -> None:
 
 
 # ---------------------------------------------------------------------------
-# Hashing — same body, same hash; tweaked frontmatter doesn't change it
+# Hashing - same body, same hash; tweaked frontmatter doesn't change it
 # ---------------------------------------------------------------------------
 
 

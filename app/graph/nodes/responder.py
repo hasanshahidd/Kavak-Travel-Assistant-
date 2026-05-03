@@ -1,4 +1,4 @@
-"""Flight responder graph node — composes the user-facing reply.
+"""Flight responder graph node - composes the user-facing reply.
 
 Two-step pipeline:
 
@@ -8,7 +8,7 @@ Two-step pipeline:
 2. **(Optional) Self-critique.** When ``self_critique=True``, run
    ``responder_critique.md`` against the draft. If the critique flags
    issues, run a *revision* pass with the issues injected as feedback.
-   This is the 0.01% upgrade — A/B-tested in the eval suite.
+   This is the 0.01% upgrade - A/B-tested in the eval suite.
 
 The self-critique loop is OFF by default so the eval can measure the
 delta between with/without. Block 7 toggles it via env flag.
@@ -39,7 +39,7 @@ SELF_CRITIQUE_ENV = "RESPONDER_SELF_CRITIQUE"
 
 
 # ---------------------------------------------------------------------------
-# Helpers — prompt-friendly formatting of search results
+# Helpers - prompt-friendly formatting of search results
 # ---------------------------------------------------------------------------
 
 
@@ -72,7 +72,7 @@ def _format_user_query(query: FlightQuery) -> str:
 def _format_relaxation(outcome: SearchOutcome) -> str:
     """Human-readable note about what was relaxed, or 'no relaxation needed'."""
     if not outcome.relaxed_constraints:
-        return "No relaxation needed — all constraints satisfied."
+        return "No relaxation needed - all constraints satisfied."
     pretty = [c.replace("_", " ") for c in outcome.relaxed_constraints]
     return f"Relaxed to find matches: {', '.join(pretty)}."
 
@@ -88,7 +88,7 @@ def _format_results(outcome: SearchOutcome) -> str:
         f = r.flight
         layover = (
             f"{f.layover_hours:.1f}h via {', '.join(f.layovers)}"
-            f"{' — overnight' if f.is_overnight_layover else ''}"
+            f"{' - overnight' if f.is_overnight_layover else ''}"
             if f.layovers
             else "Direct"
         )
@@ -127,7 +127,7 @@ def respond(
     # mode where the model invents flights to "fill the void" when the
     # tool returned []. Same architectural pattern as the RAG answerer's
     # structural-refusal path: when there's no data, don't trust the model
-    # to write text — use the diagnosis verbatim. Surfaced by real-mode
+    # to write text - use the diagnosis verbatim. Surfaced by real-mode
     # stress test where the bot fabricated 3 Garuda/Jetstar/Qantas flights
     # with 2023 dates after a Sydney-under-$200 search returned zero matches.
     if not outcome.results:
@@ -274,7 +274,7 @@ def _revise(
     """Re-run the responder with critique feedback injected as extra context.
 
     We reuse ``flight_responder.md`` and append the issue list as a short
-    extra constraint section — no separate "revision" prompt needed. This
+    extra constraint section - no separate "revision" prompt needed. This
     keeps the prompt CHANGELOG focused on the *one* responder version while
     still allowing iterative quality.
     """
@@ -283,7 +283,7 @@ def _revise(
     issues_block = "\n".join(f"- {issue}" for issue in issues)
     augmented_query = (
         f"{user_query}\n\n"
-        f"[critique feedback on prior draft — address each before responding]\n"
+        f"[critique feedback on prior draft - address each before responding]\n"
         f"{issues_block}\n\n"
         f"[prior draft for context]\n{prior_draft}"
     )
@@ -322,7 +322,7 @@ def _no_results_template(
 
     The model is allowed to hallucinate flights to "fill the void" if asked
     to write free text on top of an empty result set. This template never
-    calls the LLM — it surfaces the flight tool's diagnosis verbatim with
+    calls the LLM - it surfaces the flight tool's diagnosis verbatim with
     a polite intro. Zero hallucination risk by construction.
 
     Mirror of the RAG answerer's structural-refusal path.

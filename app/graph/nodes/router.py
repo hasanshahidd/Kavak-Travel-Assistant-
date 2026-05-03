@@ -1,4 +1,4 @@
-"""Router graph node — classifies user intent.
+"""Router graph node - classifies user intent.
 
 Pure callable: ``route(message, summary, client, tracer) -> RouterOutput``.
 Block 6's ``builder.py`` adapts this to LangGraph's ``(state) -> dict``

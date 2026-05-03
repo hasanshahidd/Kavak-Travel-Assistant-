@@ -20,7 +20,7 @@ from app.llm.verifier import REFUSAL_TEMPLATE, verify_citations
 from app.schemas.rag import Chunk, Citation, RagAnswer
 
 # ---------------------------------------------------------------------------
-# Fixture chunks — drawn from the real KB style so realism matters
+# Fixture chunks - drawn from the real KB style so realism matters
 # ---------------------------------------------------------------------------
 
 
@@ -29,9 +29,9 @@ def visa_chunk() -> Chunk:
     return Chunk(
         id="visa_rules.md#uae-passport-japan",
         doc="visa_rules.md",
-        section="UAE passport — Japan",
+        section="UAE passport - Japan",
         content=(
-            "UAE passport — Japan\n\n"
+            "UAE passport - Japan\n\n"
             "UAE passport holders can enter Japan visa-free for tourism for up to 30 days. "
             "Passport must be valid for at least 6 months from arrival, and proof of "
             "onward travel may be requested at immigration."
@@ -44,9 +44,9 @@ def refund_chunk() -> Chunk:
     return Chunk(
         id="refund_policy.md#refundable-tickets-cancellation",
         doc="refund_policy.md",
-        section="Refundable tickets — cancellation",
+        section="Refundable tickets - cancellation",
         content=(
-            "Refundable tickets — cancellation\n\n"
+            "Refundable tickets - cancellation\n\n"
             "Refundable tickets can be cancelled up to 48 hours before the scheduled "
             "departure time. A processing fee of 10% of the ticket price applies."
         ),
@@ -113,7 +113,7 @@ def test_paraphrased_span_is_stripped(visa_chunk: Chunk) -> None:
         citations=[
             Citation(
                 doc="visa_rules.md",
-                # Original says "30 days"; this says "one month" — close, not verbatim.
+                # Original says "30 days"; this says "one month" - close, not verbatim.
                 span="UAE travelers can visit Japan visa-free for one month",
             ),
         ],

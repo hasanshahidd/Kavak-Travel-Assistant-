@@ -25,7 +25,7 @@ from app.schemas import (
 )
 
 # ---------------------------------------------------------------------------
-# flights.json — full dataset must parse
+# flights.json - full dataset must parse
 # ---------------------------------------------------------------------------
 
 
@@ -150,7 +150,7 @@ def test_flight_query_strips_blank_strings() -> None:
 
 
 # ---------------------------------------------------------------------------
-# RAG schemas — citation enforcement is the central invariant
+# RAG schemas - citation enforcement is the central invariant
 # ---------------------------------------------------------------------------
 
 

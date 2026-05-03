@@ -1,20 +1,20 @@
-"""Eval harness — runs golden + adversarial sets, writes JSON + Markdown results.
+"""Eval harness - runs golden + adversarial sets, writes JSON + Markdown results.
 
 Two modes:
 
-* **mock** (default) — uses the deterministic mock LLM + mock embeddings to
+* **mock** (default) - uses the deterministic mock LLM + mock embeddings to
   exercise wiring at zero cost. Routing, extraction-merge, and adversarial
   PII / injection are all measurable here. RAG accuracy isn't (mock retrieval
   doesn't surface verbatim-match chunks reliably) so the RAG subset is
   marked as ``mock_skip``.
-* **real** (``--real``) — uses the configured OpenAI provider. Costs ~$0.05
+* **real** (``--real``) - uses the configured OpenAI provider. Costs ~$0.05
   for a full eval run on gpt-4o-mini. Recommended for the iteration loop.
 
 Both modes write three artefacts to ``evals/results/``:
 
-* ``golden.json``       — per-case pass/fail with diagnostic details
-* ``adversarial.json``  — same shape for the adversarial set
-* ``metrics.md``        — human-readable summary table + per-category breakdown
+* ``golden.json``       - per-case pass/fail with diagnostic details
+* ``adversarial.json``  - same shape for the adversarial set
+* ``metrics.md``        - human-readable summary table + per-category breakdown
 
 Run with::
 
@@ -121,10 +121,10 @@ def _preregister_mock_responses(client: MockClient) -> None:
     # Default RAG: refusal.
     refusal = RagAnswer(answer="I don't have that info.", citations=[], is_refusal=True)
     client.register("rag_answer.v2", raw_text=refusal.model_dump_json(), parsed=refusal)
-    # Default OOS reply (v3 — LLM-driven).
+    # Default OOS reply (v3 - LLM-driven).
     oos_default = OOSReply(
         category="redirect",
-        reply="That's outside what I cover — I focus on flights and travel-policy questions.",
+        reply="That's outside what I cover - I focus on flights and travel-policy questions.",
     )
     client.register(
         "oos_reply.v4", raw_text=oos_default.model_dump_json(), parsed=oos_default
@@ -393,7 +393,7 @@ def _write_metrics_md(golden: SuiteResult, adversarial: SuiteResult | None, mode
             rows.append("")
             for c in s.cases:
                 if not c.passed:
-                    rows.append(f"- `{c.id}` ({c.category}) — {c.failure_reason}")
+                    rows.append(f"- `{c.id}` ({c.category}) - {c.failure_reason}")
         rows.append("")
         return rows
 
@@ -402,7 +402,7 @@ def _write_metrics_md(golden: SuiteResult, adversarial: SuiteResult | None, mode
         lines.extend(_fmt_suite(adversarial))
 
     if mode == "mock":
-        lines.append("> **Mode note.** Mock mode doesn't measure RAG or LLM-judgement quality —")
+        lines.append("> **Mode note.** Mock mode doesn't measure RAG or LLM-judgement quality -")
         lines.append("> it exercises the wiring deterministically. Run `python -m evals.run_eval --real`")
         lines.append("> with `OPENAI_API_KEY` set for measurements that reflect prompt quality.")
         lines.append("")
@@ -432,7 +432,7 @@ def main() -> int:
     traces_dir.mkdir(parents=True, exist_ok=True)
 
     mode = "real" if args.real else "mock"
-    print(f"\n=== Kavak eval — mode: {mode} ===\n")
+    print(f"\n=== Kavak eval - mode: {mode} ===\n")
 
     suites: dict[str, SuiteResult] = {}
 

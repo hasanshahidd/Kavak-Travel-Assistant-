@@ -1,4 +1,4 @@
-"""Runtime inventory of what the agent actually has — flight catalogue + KB topics.
+"""Runtime inventory of what the agent actually has - flight catalogue + KB topics.
 
 The OOS reply LLM uses this to answer scope/meta queries ("what visas do
 you cover", "do you fly to Bali", "what can you do") from *real data*
@@ -8,12 +8,12 @@ Two consequences worth flagging:
 
 1. **No prompt bumps when data changes.** Add a new visa doc to the KB
    or a new flight row to the catalogue and the bot's scope replies
-   update on the next turn — no edit to ``oos_reply.md`` required.
+   update on the next turn - no edit to ``oos_reply.md`` required.
 
 2. **No fabrication risk.** The inventory text is composed from the same
    structured sources the rest of the agent consumes (``FlightIndex.flights``,
    ``KBRetriever`` chunk metadata). The LLM is constrained by the prompt
-   to answer only from this block — it's the same anti-hallucination
+   to answer only from this block - it's the same anti-hallucination
    contract used in the RAG path, applied to scope questions.
 
 The strings are deliberately short (route lists capped at 8, KB sections
@@ -39,7 +39,7 @@ def flight_inventory(index: FlightIndex, *, max_routes: int = 8) -> str:
     """One short paragraph describing the flight dataset.
 
     Lists distinct origin cities, destination cities, alliances, and a
-    sample of routes. Capped to keep the prompt budget tight — for a
+    sample of routes. Capped to keep the prompt budget tight - for a
     larger catalogue we'd switch to "X origins / Y destinations" summaries.
     """
     flights = index.flights
@@ -63,7 +63,7 @@ def flight_inventory(index: FlightIndex, *, max_routes: int = 8) -> str:
 
 
 def kb_inventory(kb: KBRetriever) -> str:
-    """One short paragraph describing the KB — one bullet per document.
+    """One short paragraph describing the KB - one bullet per document.
 
     Each line is "doc-name: section1, section2, ...". The OOS LLM uses
     this to answer "what visas/refunds/baggage do you cover" without us

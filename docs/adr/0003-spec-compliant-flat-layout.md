@@ -1,4 +1,4 @@
-# ADR 0003 — Spec-compliant flat layout, single-process Python
+# ADR 0003 - Spec-compliant flat layout, single-process Python
 
 **Date:** 2026-05-02
 **Status:** Accepted
@@ -22,7 +22,7 @@ proceeding forward."*
 
 An earlier iteration of this project used a `backend/` + `frontend/`
 monorepo with FastAPI + React + SSE streaming. That structure violates
-the spec literally — `main.py` is at `backend/main.py`, not at the root.
+the spec literally - `main.py` is at `backend/main.py`, not at the root.
 
 A flexible reviewer would forgive the deviation. A by-the-book reviewer
 running through a checklist would mark "structure: not compliant" and
@@ -33,10 +33,10 @@ move on.
 **Restructure to the spec's exact flat layout.** Drop the React frontend
 and FastAPI server. Replace with:
 
-* `main.py` at the repo root — Rich-formatted CLI entry
-* `streamlit_app.py` at the repo root — web UI with a live trace sidebar
+* `main.py` at the repo root - Rich-formatted CLI entry
+* `streamlit_app.py` at the repo root - web UI with a live trace sidebar
 * The agent itself as a Python *package* (`app/`) imported by both
-  entry points — not a separate process
+  entry points - not a separate process
 
 ## Why
 
@@ -56,12 +56,12 @@ and FastAPI server. Replace with:
 3. **The trace sidebar is *easier* in Streamlit than in React.** The
    sidebar reads `tracer.events` (an in-process Python list) directly.
    With React + FastAPI the same UX needs SSE plumbing, JSON
-   serialization, frontend state management — all for the same final
+   serialization, frontend state management - all for the same final
    pixel output.
 
 4. **Every 0.01% differentiator survives the restructure.** Versioned
    prompts, citation verifier, multi-turn override memory, adversarial
-   eval, trace replay — none of them depended on having a separate
+   eval, trace replay - none of them depended on having a separate
    server process.
 
 ## Trade-offs we accept
@@ -80,14 +80,14 @@ and FastAPI server. Replace with:
 
 ## Alternatives considered
 
-* **Keep the monorepo, hope the reviewer is flexible.** Rejected — the
+* **Keep the monorepo, hope the reviewer is flexible.** Rejected - the
   asymmetric risk is too high.
 * **Symlink hack** (real code in `backend/`, symlinks at the root).
-  Rejected — works on Linux/Mac but breaks on Windows reviewers, and
+  Rejected - works on Linux/Mac but breaks on Windows reviewers, and
   is the kind of "clever" that reads as "I didn't want to do the
   refactor."
 * **Hybrid: spec files at root + `backend/` shim that re-exports
-  everything.** Rejected — adds complexity for no real upside; the
+  everything.** Rejected - adds complexity for no real upside; the
   flat layout is genuinely cleaner.
 
 ## Consequences

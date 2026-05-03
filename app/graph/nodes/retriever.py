@@ -1,4 +1,4 @@
-"""Retriever graph node — wraps :class:`KBRetriever` with tracing.
+"""Retriever graph node - wraps :class:`KBRetriever` with tracing.
 
 Pure function ``retrieve()`` that Block 6 lifts into the LangGraph state
 machine. Designed to be testable in isolation by passing a retriever and a
@@ -6,7 +6,7 @@ tracer; no implicit dependencies on graph state shape.
 
 Multi-turn aware: when a ``conversation_summary`` is provided, the
 embedding query is built as ``"<summary topic>\n\n<user_message>"``.
-This is the cheap fix for the classic RAG failure — *"tell me on tokyo"*
+This is the cheap fix for the classic RAG failure - *"tell me on tokyo"*
 after the user already asked about visa coverage. With just the user
 message, the embedding has no policy keyword and the threshold gate
 returns nothing. With the summary stitched in, the embedding picks up
@@ -24,7 +24,7 @@ from app.schemas.rag import Chunk
 from app.tools.kb_retriever import KBRetriever
 from app.utils.airports import country_for_city
 
-# Default thresholds — also referenced by the answerer's refusal path.
+# Default thresholds - also referenced by the answerer's refusal path.
 #
 # DEFAULT_MIN_SCORE was 0.5 originally; lowered to 0.4 after measuring real
 # OpenAI text-embedding-3-small scores against this KB. The empirical
@@ -37,7 +37,7 @@ from app.utils.airports import country_for_city
 # The natural break point is ~0.4. The verifier-stripped citation contract
 # (answerer.py) already protects against false-positive matches even when
 # the threshold is generous, so this trades a tighter recall ceiling for
-# a slightly looser precision floor — exactly the right direction.
+# a slightly looser precision floor - exactly the right direction.
 DEFAULT_TOP_K = 4
 DEFAULT_MIN_SCORE = 0.4
 
@@ -101,13 +101,13 @@ def _detect_topic(text: str) -> str | None:
 def _expand_city_to_country(text: str) -> str:
     """Append "(Country)" hints for any city mentioned in ``text``.
 
-    The KB sections are titled by country (*UAE passport — Japan*), but
+    The KB sections are titled by country (*UAE passport - Japan*), but
     real users phrase visa questions by city (*"visa for Tokyo"*). Cosine
     similarity between *Tokyo* and *Japan* is positive but often under
     the 0.5 relevance gate. Adding the country as a hint lifts the score
     above the threshold reliably without touching the threshold itself.
 
-    We only add hints for words we recognise as cities — unknown words
+    We only add hints for words we recognise as cities - unknown words
     are left alone, so this can't introduce noise.
     """
     seen: set[str] = set()
@@ -184,7 +184,7 @@ def retrieve(
     """Retrieve top-k chunks above the relevance threshold for a user question.
 
     ``tracer``, when provided, gets a ``"retriever"`` event with the
-    embedded query, chunk ids, scores, and threshold — exactly what the
+    embedded query, chunk ids, scores, and threshold - exactly what the
     Streamlit sidebar needs to render the agent's reasoning.
     """
     started = time.perf_counter()

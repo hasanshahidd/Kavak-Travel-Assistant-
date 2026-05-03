@@ -1,4 +1,4 @@
-"""Flight responder tests — draft path + self-critique loop.
+"""Flight responder tests - draft path + self-critique loop.
 
 The self-critique loop is the 0.01% upgrade for Block 5. These tests prove:
 
@@ -46,7 +46,7 @@ def search_outcome():
 
 
 # ---------------------------------------------------------------------------
-# Path 1 — draft only (critique disabled)
+# Path 1 - draft only (critique disabled)
 # ---------------------------------------------------------------------------
 
 
@@ -71,7 +71,7 @@ def test_draft_only_when_self_critique_disabled(search_outcome, tracer: Tracer) 
 
 
 # ---------------------------------------------------------------------------
-# Path 2 — critique passes, no revision
+# Path 2 - critique passes, no revision
 # ---------------------------------------------------------------------------
 
 
@@ -97,7 +97,7 @@ def test_critique_passes_so_no_revision(search_outcome, tracer: Tracer) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Path 3 — critique fails, revision runs
+# Path 3 - critique fails, revision runs
 # ---------------------------------------------------------------------------
 
 
@@ -136,7 +136,7 @@ def test_critique_fails_triggers_revision(search_outcome, tracer: Tracer) -> Non
 
 
 # ---------------------------------------------------------------------------
-# Path 4 — env flag controls default behaviour
+# Path 4 - env flag controls default behaviour
 # ---------------------------------------------------------------------------
 
 
@@ -173,13 +173,13 @@ def test_env_flag_off_by_default(search_outcome, tracer: Tracer) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Path 5 — empty results path still produces a usable reply
+# Path 5 - empty results path still produces a usable reply
 # ---------------------------------------------------------------------------
 
 
 def test_responder_no_results_path_short_circuits_without_llm(tracer: Tracer) -> None:
     """When the flight tool returned no matches, the responder uses a
-    deterministic template — NO LLM call. This is the structural defence
+    deterministic template - NO LLM call. This is the structural defence
     against the no-results hallucination mode (model inventing flights
     to 'fill the void' when given an empty result set)."""
     query = FlightQuery(
@@ -193,7 +193,7 @@ def test_responder_no_results_path_short_circuits_without_llm(tracer: Tracer) ->
 
     # The MockClient is intentionally NOT registered with any responder text.
     # If the LLM were called, the test would either pick up a default canned
-    # response OR raise. We assert neither happens — the template fires first.
+    # response OR raise. We assert neither happens - the template fires first.
     client = MockClient(
         default_text="THIS_TEXT_SHOULD_NEVER_APPEAR_IN_USER_REPLY_HALLUCINATION"
     )
@@ -203,7 +203,7 @@ def test_responder_no_results_path_short_circuits_without_llm(tracer: Tracer) ->
 
     # Hallucination probe: fabricated text from the mock must NOT have leaked.
     assert "HALLUCINATION" not in result, (
-        "responder called the LLM on empty-results path — short-circuit failed"
+        "responder called the LLM on empty-results path - short-circuit failed"
     )
     # The flight tool's actual diagnosis must be in the reply.
     assert "Atlantis" in result or "don't have" in result.lower()

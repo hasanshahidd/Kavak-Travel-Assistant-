@@ -2,11 +2,11 @@
 
 > Effective 2026-01-01. Applies to all bookings made through this platform.
 
-## Refundable tickets — cancellation
+## Refundable tickets - cancellation
 
 Refundable tickets can be cancelled up to 48 hours before the scheduled departure time. A processing fee of 10% of the ticket price applies and is deducted from the refund. The remaining amount is returned to the original payment method within 7 to 10 business days.
 
-## Refundable tickets — within 48 hours of departure
+## Refundable tickets - within 48 hours of departure
 
 Refundable tickets cancelled within 48 hours of departure are subject to a 50% cancellation fee. No-shows forfeit the entire ticket value with no refund issued.
 

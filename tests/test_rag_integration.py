@@ -46,7 +46,7 @@ def tracer(tmp_path: Path) -> Tracer:
 
 
 # ---------------------------------------------------------------------------
-# Path 1 — happy path with real KB + real prompt + verified citation
+# Path 1 - happy path with real KB + real prompt + verified citation
 # ---------------------------------------------------------------------------
 
 
@@ -63,7 +63,7 @@ def test_full_rag_path_visa_question(kb: KBRetriever, tracer: Tracer, tmp_path: 
     # from the actual KB content. This proves the integration in two ways:
     #  - The MockClient interface works with the rag_answer prompt
     #  - The verifier confirms the cited span is actually in the retrieved chunk
-    # Pick the UAE→Japan chunk specifically — the KB now has multiple
+    # Pick the UAE→Japan chunk specifically - the KB now has multiple
     # Japan visa rules (UAE / Indian / UK / Pakistani / Filipino passports).
     visa_chunk = next(
         c for c in chunks
@@ -114,7 +114,7 @@ def test_full_rag_path_visa_question(kb: KBRetriever, tracer: Tracer, tmp_path: 
 
 
 # ---------------------------------------------------------------------------
-# Path 2 — verifier strips a hallucinated span → answer becomes a refusal
+# Path 2 - verifier strips a hallucinated span → answer becomes a refusal
 # ---------------------------------------------------------------------------
 
 
@@ -146,14 +146,14 @@ def test_hallucinated_span_is_stripped_and_converted_to_refusal(
     assert "B-1 tourist visa" not in result.answer
     assert result.citations == []
 
-    # The trace records WHY the conversion happened — useful for debugging.
+    # The trace records WHY the conversion happened - useful for debugging.
     answerer_event = tracer.events[-1]
     assert answerer_event.output["verifier"]["converted_to_refusal"] is True
     assert answerer_event.output["verifier"]["citations_stripped"] == 1
 
 
 # ---------------------------------------------------------------------------
-# Path 3 — retrieval misses → structural refusal (no LLM call)
+# Path 3 - retrieval misses → structural refusal (no LLM call)
 # ---------------------------------------------------------------------------
 
 
@@ -180,7 +180,7 @@ def test_off_topic_question_short_circuits_to_refusal(kb: KBRetriever, tracer: T
 
 
 # ---------------------------------------------------------------------------
-# Path 4 — opt-in real OpenAI integration
+# Path 4 - opt-in real OpenAI integration
 # ---------------------------------------------------------------------------
 
 
@@ -208,7 +208,7 @@ def test_full_rag_path_with_real_openai(tmp_path: Path) -> None:
 
     result = answer(question=question, chunks=chunks, client=client, tracer=tracer)
     # If the model tried to hallucinate, the verifier would strip the citations
-    # and convert to refusal. Either is acceptable end-state — a real-OpenAI
+    # and convert to refusal. Either is acceptable end-state - a real-OpenAI
     # answer that survives verification, or an honest refusal.
     if result.is_refusal:
         assert result.citations == []

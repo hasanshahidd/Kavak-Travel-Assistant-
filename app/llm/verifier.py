@@ -1,4 +1,4 @@
-"""Citation verifier — the second half of the no-hallucination architecture.
+"""Citation verifier - the second half of the no-hallucination architecture.
 
 The first half is the retrieval threshold gate (``KBRetriever.search`` returns
 ``[]`` when nothing scores above 0.5, forcing the answerer to refuse). This
@@ -10,7 +10,7 @@ Contract:
 * Every ``Citation`` in a ``RagAnswer`` is checked against the chunk it claims
   to cite. Specifically: the citation's ``span`` must appear as a substring
   (after light whitespace normalisation) in some chunk whose ``doc`` matches.
-* Citations that fail this check are stripped — silently, without correcting.
+* Citations that fail this check are stripped - silently, without correcting.
   The model gets one chance; we don't try to fix its homework.
 * If verification removes *all* citations on a non-refusal answer, the answer
   is converted into an explicit refusal so the user never sees an
@@ -43,7 +43,7 @@ REFUSAL_TEMPLATE = (
 
 
 # ---------------------------------------------------------------------------
-# Verification report — useful for tracing AND for tests
+# Verification report - useful for tracing AND for tests
 # ---------------------------------------------------------------------------
 
 

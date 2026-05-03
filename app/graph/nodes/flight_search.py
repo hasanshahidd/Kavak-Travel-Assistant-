@@ -1,10 +1,10 @@
-"""Flight search graph node — wraps :class:`FlightIndex` with tracing.
+"""Flight search graph node - wraps :class:`FlightIndex` with tracing.
 
 Pure function ``search_flights()`` ready to lift into the LangGraph state
 machine in Block 6. Designed to be testable in isolation by passing an
 index and (optionally) a tracer; no implicit dependencies on graph state.
 
-The trace event is rich on purpose — when relaxation happens, the user
+The trace event is rich on purpose - when relaxation happens, the user
 sees a "we dropped X" note, but the trace records exactly which
 constraints were relaxed and the candidate-pool size. That's what lets
 the eval suite measure "how often does the bot relax vs. exact-match"

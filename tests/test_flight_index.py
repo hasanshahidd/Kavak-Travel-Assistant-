@@ -1,4 +1,4 @@
-"""Flight index tests — match logic, soft-constraint relaxation, ranking."""
+"""Flight index tests - match logic, soft-constraint relaxation, ranking."""
 
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ def index() -> FlightIndex:
 
 
 # ---------------------------------------------------------------------------
-# Happy path — exact match
+# Happy path - exact match
 # ---------------------------------------------------------------------------
 
 
@@ -157,7 +157,7 @@ def test_relaxes_overnight_constraint(index: FlightIndex) -> None:
 
 
 def test_no_results_when_route_does_not_exist(index: FlightIndex) -> None:
-    """No flights to Atlantis — even hard relaxation can't help."""
+    """No flights to Atlantis - even hard relaxation can't help."""
     query = FlightQuery(
         origin="Dubai",
         destination="Atlantis",
@@ -169,7 +169,7 @@ def test_no_results_when_route_does_not_exist(index: FlightIndex) -> None:
 
 
 def test_diagnose_helps_when_price_too_low(index: FlightIndex) -> None:
-    """User asks for $100 to Sydney — none exist. The diagnosis should mention price."""
+    """User asks for $100 to Sydney - none exist. The diagnosis should mention price."""
     query = FlightQuery(
         origin="Dubai",
         destination="Sydney",
@@ -206,7 +206,7 @@ def test_priority_order_relaxes_alliance_before_overnight(index: FlightIndex) ->
 
 
 # ---------------------------------------------------------------------------
-# Hard constraints — never relaxed
+# Hard constraints - never relaxed
 # ---------------------------------------------------------------------------
 
 

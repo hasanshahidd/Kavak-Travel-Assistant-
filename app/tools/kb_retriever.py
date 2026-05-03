@@ -1,4 +1,4 @@
-"""Knowledge-base retriever — H2-section chunking + FAISS over embeddings.
+"""Knowledge-base retriever - H2-section chunking + FAISS over embeddings.
 
 Three things this module gets right that most RAG implementations skip:
 
@@ -67,7 +67,7 @@ def chunk_markdown(text: str, *, doc: str) -> list[Chunk]:
         body = text[body_start:body_end].strip()
         if not body:
             continue
-        # Include the heading in content — improves retrieval and gives the
+        # Include the heading in content - improves retrieval and gives the
         # citation verifier a string to match heading-derived spans against.
         content = f"{heading}\n\n{body}"
         chunks.append(
@@ -91,7 +91,7 @@ def load_kb_chunks(kb_dir: Path) -> list[Chunk]:
 
 
 # ---------------------------------------------------------------------------
-# Cache key — hash all KB content so index rebuilds when text changes
+# Cache key - hash all KB content so index rebuilds when text changes
 # ---------------------------------------------------------------------------
 
 

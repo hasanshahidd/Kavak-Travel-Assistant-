@@ -1,7 +1,7 @@
 [project]
 name = "kavak-travel-assistant"
 version = "0.1.0"
-description = "Conversational travel assistant — flight search, RAG-backed visa/refund Q&A."
+description = "Conversational travel assistant - flight search, RAG-backed visa/refund Q&A."
 authors = [{ name = "Hassan" }]
 requires-python = ">=3.11"
 

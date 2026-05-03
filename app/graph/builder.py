@@ -43,7 +43,7 @@ from app.tools.flight_index import FlightIndex
 from app.tools.kb_retriever import KBRetriever
 
 # ---------------------------------------------------------------------------
-# Substrate — the IO-bound dependencies shared across nodes
+# Substrate - the IO-bound dependencies shared across nodes
 # ---------------------------------------------------------------------------
 
 
@@ -74,7 +74,7 @@ def default_substrate(self_critique: bool = False) -> AgentSubstrate:
 
 
 # ---------------------------------------------------------------------------
-# Node adapters — bind substrate, hand LangGraph the (state) -> dict shape
+# Node adapters - bind substrate, hand LangGraph the (state) -> dict shape
 # ---------------------------------------------------------------------------
 
 # A LangGraph node is a callable that takes the running state and returns a

@@ -2,9 +2,9 @@
 
 The OpenAI path requires network + a live key, so we focus on:
 
-* :class:`MockClient` — used by the eval harness and offline demos
-* Cost calculation helper — independent of any vendor
-* Factory selection — env-driven, must fall back gracefully
+* :class:`MockClient` - used by the eval harness and offline demos
+* Cost calculation helper - independent of any vendor
+* Factory selection - env-driven, must fall back gracefully
 
 The integration test for ``OpenAIClient`` is opt-in; it skips when no
 ``OPENAI_API_KEY`` is configured so CI stays green without a key.
@@ -68,7 +68,7 @@ def test_compute_cost_zero_tokens() -> None:
 
 
 # ---------------------------------------------------------------------------
-# MockClient — text and structured paths
+# MockClient - text and structured paths
 # ---------------------------------------------------------------------------
 
 
@@ -136,7 +136,7 @@ def test_mock_client_records_prompt_hash_and_id() -> None:
 
 
 # ---------------------------------------------------------------------------
-# Factory — env-driven selection with graceful fallback
+# Factory - env-driven selection with graceful fallback
 # ---------------------------------------------------------------------------
 
 
@@ -154,14 +154,14 @@ def test_factory_falls_back_to_mock_when_openai_key_missing(monkeypatch: pytest.
     try:
         client = get_llm_client(provider="openai")
         # If a real key happens to be set in environment beyond monkeypatch,
-        # this is still acceptable — we got a working client.
+        # this is still acceptable - we got a working client.
         assert client.name in {"mock", "openai"}
     finally:
         get_settings.cache_clear()
 
 
 # ---------------------------------------------------------------------------
-# OpenAI integration — opt-in only
+# OpenAI integration - opt-in only
 # ---------------------------------------------------------------------------
 
 
@@ -170,7 +170,7 @@ def test_factory_falls_back_to_mock_when_openai_key_missing(monkeypatch: pytest.
     reason="No OPENAI_API_KEY or explicitly skipped",
 )
 def test_openai_integration_real_call() -> None:
-    """Live smoke test — only runs when explicitly configured."""
+    """Live smoke test - only runs when explicitly configured."""
     from app.llm.client import OpenAIClient
 
     client = OpenAIClient()

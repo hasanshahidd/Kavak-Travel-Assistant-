@@ -1,1 +1,1 @@
-"""Graph nodes — each is a pure function: AgentState -> AgentState."""
+"""Graph nodes - each is a pure function: AgentState -> AgentState."""

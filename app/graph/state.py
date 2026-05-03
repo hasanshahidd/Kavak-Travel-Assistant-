@@ -1,15 +1,15 @@
-"""Agent state shape — what flows through the LangGraph state machine.
+"""Agent state shape - what flows through the LangGraph state machine.
 
 Designed to be:
 
-* **Total-False TypedDict** — every key is optional so nodes can update
+* **Total-False TypedDict** - every key is optional so nodes can update
   only the fields they own. LangGraph merges partial updates into the
   running state automatically.
-* **Pydantic models, not raw dicts** — the heavy domain values
+* **Pydantic models, not raw dicts** - the heavy domain values
   (``flight_query``, ``flight_results``, ``rag_answer``) keep their
   Pydantic types. The state is a *carrier*; the typed contracts live
   inside it.
-* **Trace-aware** — the state holds the live :class:`Tracer`, so any
+* **Trace-aware** - the state holds the live :class:`Tracer`, so any
   node that wants to emit an event has access without sneaking through
   globals.
 

@@ -27,7 +27,7 @@ rich>=13.7.0
 typer>=0.12.0
 streamlit>=1.39.0
 
-# --- Dev / quality (kept lean — pinned only what we use) ---
+# --- Dev / quality (kept lean - pinned only what we use) ---
 pytest>=8.3.0
 ruff>=0.6.0
 mypy>=1.11.0

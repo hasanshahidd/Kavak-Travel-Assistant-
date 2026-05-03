@@ -1,8 +1,8 @@
-"""Memory override semantics — the D4 differentiator.
+"""Memory override semantics - the D4 differentiator.
 
 Most chat agents fail multi-turn refinement in two ways:
-* **State leak** — old filters bleed into a new search
-* **State amnesia** — every turn starts fresh, losing destination/dates
+* **State leak** - old filters bleed into a new search
+* **State amnesia** - every turn starts fresh, losing destination/dates
 
 These tests prove our merge logic handles the five scenarios that matter:
 
@@ -11,9 +11,9 @@ These tests prove our merge logic handles the five scenarios that matter:
    destination, alliance, no-overnight; replace date only.
 3. Topic switch ("now show me Paris") → reset all soft preferences,
    keep origin (stable user property).
-4. Refinement with empty fields ("make it cheaper") — extractor only
+4. Refinement with empty fields ("make it cheaper") - extractor only
    sets ``max_price_usd``; merge fills destination/date from prior.
-5. Same-city alias resolution — "Tokyo" and "NRT" must NOT trigger a
+5. Same-city alias resolution - "Tokyo" and "NRT" must NOT trigger a
    topic switch (they refer to the same destination).
 """
 
@@ -29,7 +29,7 @@ from app.memory.conversation import (
 from app.schemas.flight import FlightQuery, TripType
 
 # ---------------------------------------------------------------------------
-# Scenario 1 — first turn, no prior state
+# Scenario 1 - first turn, no prior state
 # ---------------------------------------------------------------------------
 
 
@@ -46,12 +46,12 @@ def test_first_turn_uses_new_query_as_is() -> None:
 
 
 # ---------------------------------------------------------------------------
-# Scenario 2 — date-only override preserves all other state
+# Scenario 2 - date-only override preserves all other state
 # ---------------------------------------------------------------------------
 
 
 def test_date_override_preserves_other_filters() -> None:
-    """User: 'actually move it to September' — extractor returns full query
+    """User: 'actually move it to September' - extractor returns full query
     with date changed; merge should not destroy alliance/no-overnight."""
     prior = FlightQuery(
         origin="Dubai",
@@ -85,7 +85,7 @@ def test_date_override_when_extractor_omits_unchanged_fields() -> None:
         preferred_alliances=["Star Alliance"],
         avoid_overnight_layovers=True,
     )
-    # Sparse extractor output — only the changed field.
+    # Sparse extractor output - only the changed field.
     new = FlightQuery(
         departure_date=date(2026, 9, 1),
     )
@@ -98,12 +98,12 @@ def test_date_override_when_extractor_omits_unchanged_fields() -> None:
 
 
 # ---------------------------------------------------------------------------
-# Scenario 3 — topic switch resets soft state
+# Scenario 3 - topic switch resets soft state
 # ---------------------------------------------------------------------------
 
 
 def test_topic_switch_resets_soft_preferences() -> None:
-    """User: 'now show me flights to Paris' — Star Alliance + no-overnight
+    """User: 'now show me flights to Paris' - Star Alliance + no-overnight
     must NOT carry over to the new search."""
     prior = FlightQuery(
         origin="Dubai",
@@ -143,7 +143,7 @@ def test_is_topic_switch_false_when_new_destination_omitted() -> None:
 
 
 # ---------------------------------------------------------------------------
-# Scenario 4 — refinement with sparse new query inherits prior context
+# Scenario 4 - refinement with sparse new query inherits prior context
 # ---------------------------------------------------------------------------
 
 
@@ -163,7 +163,7 @@ def test_make_it_cheaper_inherits_destination_and_date() -> None:
 
 
 # ---------------------------------------------------------------------------
-# Scenario 5 — IATA / city-name aliases must not trigger topic switch
+# Scenario 5 - IATA / city-name aliases must not trigger topic switch
 # ---------------------------------------------------------------------------
 
 
@@ -173,7 +173,7 @@ def test_iata_alias_does_not_trigger_topic_switch() -> None:
     new = FlightQuery(origin="DXB", destination="NRT", departure_date=date(2026, 9, 1))
     assert is_topic_switch(prior, new) is False
     merged = merge_query(prior=prior, new=new)
-    # No reset — the destination effectively didn't change
+    # No reset - the destination effectively didn't change
     assert merged.departure_date == date(2026, 9, 1)
 
 
@@ -185,7 +185,7 @@ def test_multi_airport_city_alias_does_not_trigger_switch() -> None:
 
 
 # ---------------------------------------------------------------------------
-# Conversation store — store + recall + summary
+# Conversation store - store + recall + summary
 # ---------------------------------------------------------------------------
 
 
@@ -240,7 +240,7 @@ def test_conversation_reset_clears_everything() -> None:
 
 
 # ---------------------------------------------------------------------------
-# Edge case — nothing inheritable, merge is a no-op
+# Edge case - nothing inheritable, merge is a no-op
 # ---------------------------------------------------------------------------
 
 

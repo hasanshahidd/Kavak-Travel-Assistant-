@@ -152,7 +152,7 @@ def test_clarifier_returns_text_question(tracer: Tracer) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Out-of-scope — LLM-driven (v3, replaces regex/whitelist branching)
+# Out-of-scope - LLM-driven (v3, replaces regex/whitelist branching)
 # ---------------------------------------------------------------------------
 
 
@@ -162,7 +162,7 @@ def _register_oos(client: MockClient, category: str, reply: str) -> None:
     client.register("oos_reply.v4", raw_text=canned.model_dump_json(), parsed=canned)
 
 
-# Stub inventories for OOS unit tests — the prompt requires these variables
+# Stub inventories for OOS unit tests - the prompt requires these variables
 # but the MockClient ignores body content, so any non-empty string suffices.
 _FLIGHT_INV = "Origins: Dubai. Destinations: Tokyo. Sample routes: Dubai→Tokyo."
 _KB_INV = "visa rules: Japan. refund policy: cancellation window."
@@ -216,11 +216,11 @@ def test_oos_trace_records_category(tracer: Tracer) -> None:
 
 
 def test_oos_invalid_response_type_raises() -> None:
-    """If the client returns the wrong type, fail fast — don't ship garbage."""
+    """If the client returns the wrong type, fail fast - don't ship garbage."""
     client = MockClient(default_text="not a valid OOSReply JSON")
     # The MockClient will try to parse the default text as OOSReply,
     # which will raise LLMValidationError before our TypeError check.
-    with pytest.raises(Exception):  # noqa: B017 — broad on purpose
+    with pytest.raises(Exception):  # noqa: B017 - broad on purpose
         out_of_scope_reply(
             user_message="hi",
             client=client,

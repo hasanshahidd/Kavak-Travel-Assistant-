@@ -1,4 +1,4 @@
-"""Resume UAT-200 from where it died — only run queries 171-200."""
+"""Resume UAT-200 from where it died - only run queries 171-200."""
 from __future__ import annotations
 
 import os
@@ -40,7 +40,7 @@ def main() -> int:
         print(f"[{verdict:5}] {i:3}/200 {label:25} -> {row['intent']}{cat} {row['latency_ms']:.0f}ms", flush=True)
 
     print()
-    print(f"# UAT-200 RESUME — last 30: {pass_count}/{len(remaining)} pass")
+    print(f"# UAT-200 RESUME - last 30: {pass_count}/{len(remaining)} pass")
     return 0
 
 

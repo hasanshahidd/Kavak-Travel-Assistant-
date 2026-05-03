@@ -2,7 +2,7 @@
 
 The extractor receives natural-language airline / alliance preferences and
 sets ``preferred_airlines`` / ``preferred_alliances`` on the FlightQuery.
-The flight index needs to translate between them — for example, a query
+The flight index needs to translate between them - for example, a query
 that asked for "Star Alliance" should match any Star Alliance airline in
 the dataset, not require the dataset to also mention "Star Alliance".
 

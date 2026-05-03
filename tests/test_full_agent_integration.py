@@ -1,10 +1,10 @@
-"""End-to-end LangGraph agent integration — proves Block 6 wires everything.
+"""End-to-end LangGraph agent integration - proves Block 6 wires everything.
 
 Walks a five-turn scripted conversation through the compiled agent.
 Each turn exercises a different intent path, and the conversation memory
-preserves state across turns. If any layer breaks — router, extractor,
+preserves state across turns. If any layer breaks - router, extractor,
 flight_search, retriever, answerer, responder, clarifier, out_of_scope,
-memory merge — these tests fail.
+memory merge - these tests fail.
 
 The substrate uses ``MockClient`` and ``MockEmbeddingsClient`` so this
 runs without network. The opt-in test at the end (skipped without
@@ -31,7 +31,7 @@ from app.tools.flight_index import FlightIndex
 from app.tools.kb_retriever import KBRetriever
 
 # ---------------------------------------------------------------------------
-# Substrate fixture — MockClient preloaded with canned responses for each
+# Substrate fixture - MockClient preloaded with canned responses for each
 # prompt id we'll see in the scripted conversation. This is the realism
 # trade-off: we don't pay for OpenAI calls, but we do prove the wiring.
 # ---------------------------------------------------------------------------
@@ -59,7 +59,7 @@ def _register_extractor(client: MockClient, query: FlightQuery) -> None:
 
 
 def _register_responder(client: MockClient, text: str) -> None:
-    # Responder uses default_text path — register the canned text.
+    # Responder uses default_text path - register the canned text.
     client._registry["flight_responder.v2"] = (text, None)
 
 
@@ -120,7 +120,7 @@ def test_five_turn_conversation_preserves_state_correctly(
     convo.commit_query(state1["flight_query"])
     convo.add_assistant_message(state1["final_answer"])
 
-    # ============ TURN 2: refinement — date override ============
+    # ============ TURN 2: refinement - date override ============
     _register_router(client, Intent.FLIGHT_SEARCH, "user is refining the prior search")
     # Sparse extractor output: only the date changed
     _register_extractor(client, FlightQuery(departure_date=date(2026, 9, 1)))
@@ -141,7 +141,7 @@ def test_five_turn_conversation_preserves_state_correctly(
     convo.commit_query(merged_q)
     convo.add_assistant_message(state2["final_answer"])
 
-    # ============ TURN 3: topic switch — reset state ============
+    # ============ TURN 3: topic switch - reset state ============
     _register_router(client, Intent.FLIGHT_SEARCH, "destination changed")
     _register_extractor(client, FlightQuery(origin="Dubai", destination="Paris"))
     _register_responder(client, "Found Paris flights.")
@@ -152,14 +152,14 @@ def test_five_turn_conversation_preserves_state_correctly(
 
     new_q: FlightQuery = state3["flight_query"]
     assert new_q.destination == "Paris"
-    # Topic switch RESET soft preferences — no leak from prior Tokyo search
+    # Topic switch RESET soft preferences - no leak from prior Tokyo search
     assert new_q.preferred_alliances == [], "topic switch must reset alliance preference"
     assert new_q.avoid_overnight_layovers is False, "topic switch must reset overnight constraint"
     assert new_q.departure_date is None, "topic switch must reset date"
     convo.commit_query(new_q)
     convo.add_assistant_message(state3["final_answer"])
 
-    # ============ TURN 4: policy Q&A — different path entirely ============
+    # ============ TURN 4: policy Q&A - different path entirely ============
     _register_router(client, Intent.POLICY_QA, "user asked about visas")
     rag = RagAnswer(
         answer="UAE passport holders can enter Japan visa-free for tourism for up to 30 days.",
@@ -177,7 +177,7 @@ def test_five_turn_conversation_preserves_state_correctly(
     assert state4["intent"] is Intent.POLICY_QA
     # The RAG path either: (a) returns a verified answer with citations, or
     # (b) refuses because mock embeddings didn't surface a chunk that
-    # contains the cited span verbatim. Either is a *valid* agent path —
+    # contains the cited span verbatim. Either is a *valid* agent path -
     # what matters here is that POLICY_QA executed without polluting flight memory.
     rag = state4["rag_answer"]
     assert rag is not None
@@ -187,14 +187,14 @@ def test_five_turn_conversation_preserves_state_correctly(
         "policy Q&A must not overwrite the prior flight query"
     )
 
-    # ============ TURN 5: out-of-scope — graceful redirect ============
+    # ============ TURN 5: out-of-scope - graceful redirect ============
     _register_router(client, Intent.OUT_OF_SCOPE, "weather is off-domain")
-    # OOS node is now LLM-driven — register a canned OOSReply.
+    # OOS node is now LLM-driven - register a canned OOSReply.
     from app.schemas.oos import OOSReply
 
     canned_oos = OOSReply(
         category="redirect",
-        reply="Weather is outside what I cover — I focus on flights and travel-policy questions. Want me to look up flights to Tokyo instead?",
+        reply="Weather is outside what I cover - I focus on flights and travel-policy questions. Want me to look up flights to Tokyo instead?",
     )
     client.register("oos_reply.v4", raw_text=canned_oos.model_dump_json(), parsed=canned_oos)
 
@@ -205,12 +205,12 @@ def test_five_turn_conversation_preserves_state_correctly(
     assert state5["intent"] is Intent.OUT_OF_SCOPE
     assert "outside what I cover" in state5["final_answer"]
     convo.add_assistant_message(state5["final_answer"])
-    # Memory STILL preserved — we didn't lose Paris because of an OOS turn
+    # Memory STILL preserved - we didn't lose Paris because of an OOS turn
     assert convo.prior_query.destination == "Paris"
 
 
 # ---------------------------------------------------------------------------
-# Clarifier path — extractor sets needs_clarification → branch into clarifier
+# Clarifier path - extractor sets needs_clarification → branch into clarifier
 # ---------------------------------------------------------------------------
 
 

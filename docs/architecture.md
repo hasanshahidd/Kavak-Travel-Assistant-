@@ -103,7 +103,7 @@ class AgentState(TypedDict, total=False):
 
 ## Why this architecture
 
-- **Single process** — one `pip install` and one command runs everything. No client/server coordination, no CORS, no SSE wiring.
-- **LangGraph state machine** — intents have clear branches; LangGraph makes the graph explicit and inspectable. We chose this over LangChain's agent executor because the latter hides the routing logic in tool-calling loops, which is harder to reason about and debug.
-- **Citation verifier as a graph node** — RAG hallucination is structurally impossible: any unverified claim is stripped before reaching the responder.
-- **In-process trace capture** — every node emits `TraceEvent`s into state; the Streamlit sidebar renders them live without any extra plumbing.
+- **Single process** - one `pip install` and one command runs everything. No client/server coordination, no CORS, no SSE wiring.
+- **LangGraph state machine** - intents have clear branches; LangGraph makes the graph explicit and inspectable. We chose this over LangChain's agent executor because the latter hides the routing logic in tool-calling loops, which is harder to reason about and debug.
+- **Citation verifier as a graph node** - RAG hallucination is structurally impossible: any unverified claim is stripped before reaching the responder.
+- **In-process trace capture** - every node emits `TraceEvent`s into state; the Streamlit sidebar renders them live without any extra plumbing.

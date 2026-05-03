@@ -1,4 +1,4 @@
-"""Tracing tests — PII redaction + JSONL roundtrip + per-turn rollups."""
+"""Tracing tests - PII redaction + JSONL roundtrip + per-turn rollups."""
 
 from __future__ import annotations
 
@@ -57,7 +57,7 @@ def test_redaction_preserves_non_string_types() -> None:
 
 
 # ---------------------------------------------------------------------------
-# Tracer — emit + persist + read back
+# Tracer - emit + persist + read back
 # ---------------------------------------------------------------------------
 
 

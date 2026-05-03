@@ -1,8 +1,8 @@
-"""RAG schemas — chunks, citations, answers.
+"""RAG schemas - chunks, citations, answers.
 
 The post-processor in ``app.llm.verifier`` enforces that every ``Citation.span``
 appears verbatim in the named source document. If verification fails, the answer
-is replaced with a refusal — making hallucination structurally impossible.
+is replaced with a refusal - making hallucination structurally impossible.
 """
 
 from __future__ import annotations
@@ -32,7 +32,7 @@ class Chunk(BaseModel):
     )
     section: str = Field(
         ...,
-        description="H2 heading text, e.g. 'UAE passport — Japan'.",
+        description="H2 heading text, e.g. 'UAE passport - Japan'.",
         min_length=1,
     )
     content: str = Field(
@@ -47,7 +47,7 @@ class Chunk(BaseModel):
 
 
 class Citation(BaseModel):
-    """A traceable claim — must point to a real substring of a real source."""
+    """A traceable claim - must point to a real substring of a real source."""
 
     model_config = ConfigDict(extra="forbid")
 

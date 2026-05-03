@@ -1,4 +1,4 @@
-"""Flight index — deterministic structured filter beats vector search here.
+"""Flight index - deterministic structured filter beats vector search here.
 
 The mock dataset is small (30 flights) and the user query is structured (a
 ``FlightQuery`` Pydantic model). Vector search would add latency and
@@ -16,7 +16,7 @@ Three behaviours that matter for the rubric:
    yields zero matches, we drop one soft constraint at a time in priority
    order, retry, and report exactly what was relaxed via
    ``SearchOutcome.relaxed_constraints``. The responder surfaces this to
-   the user — no silent "best effort" matches.
+   the user - no silent "best effort" matches.
 
 3. **Composite ranking** that mirrors what users actually care about:
    price first, then layover quality (penalising overnights and long
@@ -69,10 +69,10 @@ def _load_flights(flights_path_str: str) -> list[Flight]:
 
 
 def _matches_hard(flight: Flight, query: FlightQuery) -> bool:
-    """Hard constraints — never relaxed. A non-match here is a real "no"."""
+    """Hard constraints - never relaxed. A non-match here is a real "no"."""
     # Origin + destination resolved through the alias map so user-friendly
     # names ("Tokyo", "Bombay") match the IATA-coded flight rows. An empty
-    # expansion = unknown city — must reject (otherwise the constraint is
+    # expansion = unknown city - must reject (otherwise the constraint is
     # silently dropped and we'd return every flight, which masks failures).
     if query.origin:
         origins = expand(query.origin)
@@ -83,7 +83,7 @@ def _matches_hard(flight: Flight, query: FlightQuery) -> bool:
         if not dests or flight.destination not in dests:
             return False
 
-    # Date matching by month — see dates.matches_month for the rationale.
+    # Date matching by month - see dates.matches_month for the rationale.
     if query.departure_date and not matches_month(flight.departure_date, query.departure_date):
         return False
     if query.return_date:
@@ -95,13 +95,13 @@ def _matches_hard(flight: Flight, query: FlightQuery) -> bool:
     # Round-trip → flight must have a return_date.
     if query.trip_type is TripType.ROUND_TRIP and flight.return_date is None:
         return False
-    # NB: a one-way query against a round-trip listing is tolerated — we just
+    # NB: a one-way query against a round-trip listing is tolerated - we just
     # use the outbound leg. No reject branch needed.
 
     if query.max_price_usd is not None and flight.price_usd > query.max_price_usd:
         return False
 
-    # Hard exclusions — user explicitly said "NOT X" or "no X".
+    # Hard exclusions - user explicitly said "NOT X" or "no X".
     # Case-insensitive matching against airline / alliance.
     if query.excluded_airlines:
         excl = {a.strip().lower() for a in query.excluded_airlines if a.strip()}
@@ -118,7 +118,7 @@ def _matches_hard(flight: Flight, query: FlightQuery) -> bool:
 
 
 def _matches_soft(flight: Flight, query: FlightQuery, dropped: set[str]) -> bool:
-    """Soft constraints — those NOT in ``dropped`` must hold."""
+    """Soft constraints - those NOT in ``dropped`` must hold."""
     if (
         "preferred_airlines" not in dropped
         and query.preferred_airlines
@@ -165,7 +165,7 @@ def _explain(flight: Flight, *, has_cheaper: bool, has_direct: bool) -> str:
     """One-line rationale string used by the responder.
 
     Phrased to fit ``flight_responder.md``'s expected output line. Not a
-    long-form review — just the axis on which this flight wins.
+    long-form review - just the axis on which this flight wins.
     """
     parts: list[str] = []
     if not flight.layovers:
@@ -238,7 +238,7 @@ class FlightIndex:
             relaxed_matches = [f for f in hard_pool if _matches_soft(f, query, dropped=dropped)]
             if relaxed_matches:
                 # Filter "dropped" to only those that were actually active
-                # in the user's query — otherwise we'd report dropping
+                # in the user's query - otherwise we'd report dropping
                 # constraints the user didn't even set.
                 actually_relaxed = [c for c in dropped if _was_active(c, query)]
                 return self._build_outcome(
@@ -267,7 +267,7 @@ class FlightIndex:
         top_k: int,
     ) -> SearchOutcome:
         # Rank by either raw price (when the user asked for cheapest /
-        # lowest price) or the composite score (default — balances price,
+        # lowest price) or the composite score (default - balances price,
         # layover quality, refundability).
         if query.sort_by == "price":
             scored = sorted(matches, key=lambda f: f.price_usd)
@@ -299,7 +299,7 @@ class FlightIndex:
 
     def _diagnose_hard_failure(self, query: FlightQuery) -> str:
         """Best-effort short explanation when even the hard filter found nothing."""
-        # Unknown city — most user-friendly diagnosis.
+        # Unknown city - most user-friendly diagnosis.
         if query.destination and not expand(query.destination):
             return (
                 f"I don't have flights to {query.destination!r} in my dataset. "
@@ -332,7 +332,7 @@ class FlightIndex:
                     "Try a different month?"
                 )
         # Both origin + destination resolved to known IATAs but no flight on
-        # that specific route — list what IS connected from origin and to dest.
+        # that specific route - list what IS connected from origin and to dest.
         if query.origin and query.destination:
             origin_iatas = expand(query.origin)
             dest_iatas = expand(query.destination)

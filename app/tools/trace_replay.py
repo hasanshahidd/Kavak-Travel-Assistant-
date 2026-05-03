@@ -1,4 +1,4 @@
-"""Trace replay CLI — pretty-print any saved JSONL trace.
+"""Trace replay CLI - pretty-print any saved JSONL trace.
 
 The tracer writes one ``{turn_id}.jsonl`` file per turn under ``.traces/``.
 This tool is the human-friendly reader. It's the operational-maturity
@@ -75,8 +75,8 @@ def _render_trace(path: Path) -> int:
         table.add_row(
             str(i),
             ev.node,
-            ev.prompt_id or "—",
-            (ev.prompt_hash or "—")[:8],
+            ev.prompt_id or "-",
+            (ev.prompt_hash or "-")[:8],
             f"{ev.latency_ms:.0f}",
             str(ev.tokens_in),
             str(ev.tokens_out),

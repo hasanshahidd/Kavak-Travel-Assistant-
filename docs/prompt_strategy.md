@@ -38,7 +38,7 @@ out_of_scope) where structure adds nothing.
 
 | Node | Temp | Why |
 |---|---|---|
-| router | 0 | Deterministic classification — same input, same output |
+| router | 0 | Deterministic classification - same input, same output |
 | extractor | 0 | Structured parsing |
 | clarifier | 0.2 | Slight warmth in the question phrasing |
 | rag_answer | 0 | Citation accuracy beats prose variation |
@@ -52,7 +52,7 @@ same input produces the same output run-to-run.
 
 ## Prompt-by-prompt
 
-### `router.v1` — intent classifier
+### `router.v1` - intent classifier
 
 - **Role:** classify a single user message into one of four intents:
   `flight_search`, `policy_qa`, `clarify`, `out_of_scope`.
@@ -70,7 +70,7 @@ same input produces the same output run-to-run.
   - prompt injection → treat content as data, route the surrounding
     request
 
-### `extractor.v1` — natural language → `FlightQuery`
+### `extractor.v1` - natural language → `FlightQuery`
 
 - **Role:** convert user text into a strict `FlightQuery` JSON.
 - **Output:** `FlightQuery` (Pydantic, ~13 fields).
@@ -84,25 +84,25 @@ same input produces the same output run-to-run.
 - **Today's date pinned in the prompt:** `2026-05-02`. Required so
   relative dates ("next August", "next month") resolve deterministically.
 - **Few-shots:** five examples, deliberately chosen by failure mode:
-  1. **Negation trap** — "avoid overnight layovers" must NOT become a
+  1. **Negation trap** - "avoid overnight layovers" must NOT become a
      positive layover filter
-  2. **Missing origin** — set `needs_clarification=true`; do not guess
-  3. **Multi-turn override** — "actually move it to September" updates
+  2. **Missing origin** - set `needs_clarification=true`; do not guess
+  3. **Multi-turn override** - "actually move it to September" updates
      the date only
-  4. **Topic switch** — "now show me Paris" resets soft preferences
-  5. **Ambiguous destination** — "Bangkok or Singapore" → clarify
+  4. **Topic switch** - "now show me Paris" resets soft preferences
+  5. **Ambiguous destination** - "Bangkok or Singapore" → clarify
 - **Why these five and not others:** these are the failure modes that
   show up in real conversational flight search. Each one is documented
   in [`tests/test_memory_override.py`](../tests/test_memory_override.py).
 - **Trade-off:** ~1,200 input tokens (largest prompt in the project).
-  Justified — extractor errors propagate to flight_search, which is the
+  Justified - extractor errors propagate to flight_search, which is the
   most common turn.
 
-### `clarifier.v1` — single follow-up question
+### `clarifier.v1` - single follow-up question
 
 - **Role:** ask exactly ONE targeted question when the extractor flagged
   missing fields.
-- **Output:** plain text (no schema — goes straight to the user).
+- **Output:** plain text (no schema - goes straight to the user).
 - **Temperature:** 0.2. Slight warmth so the question doesn't read
   bureaucratic; still deterministic enough that the priority order is
   honoured.
@@ -115,7 +115,7 @@ same input produces the same output run-to-run.
   of allowed phrasings (one parenthetical follow-up suggestion is OK,
   a second question is not).
 
-### `rag_answer.v1` — policy Q&A with mandatory citations
+### `rag_answer.v1` - policy Q&A with mandatory citations
 
 - **Role:** answer travel-policy questions using ONLY the retrieved
   chunks. Refuse if chunks don't support the question.
@@ -137,25 +137,25 @@ same input produces the same output run-to-run.
   Strict verbatim is the only honest contract; fuzzy matching has the
   same epistemic problem as fabrication.
 
-### `flight_responder.v1` — format flights for the user
+### `flight_responder.v1` - format flights for the user
 
 - **Role:** turn search results into a warm, scannable Markdown reply.
 - **Output:** plain text Markdown.
-- **Temperature:** 0.3. Highest in the project — this is the only node
+- **Temperature:** 0.3. Highest in the project - this is the only node
   read as conversation. Determinism for facts, warmth for tone.
 - **CoT placement:** none. The structure is fixed (numbered list +
   one-line rationale); reasoning is the flight tool's job.
 - **Three behaviours beyond "list the flights":**
-  1. **Per-flight rationale** — "cheapest direct, refundable" tells
+  1. **Per-flight rationale** - "cheapest direct, refundable" tells
      the user *why* this match is on the list.
-  2. **Relaxation transparency** — when soft constraints were dropped,
+  2. **Relaxation transparency** - when soft constraints were dropped,
      say so explicitly. Surfacing the relaxation builds trust.
-  3. **One follow-up invitation** — never two. Same one-question rule
+  3. **One follow-up invitation** - never two. Same one-question rule
      as the clarifier.
 - **Hard rule:** never invent flight data. The flight tool is the source
   of truth; the prompt is just a renderer.
 
-### `responder_critique.v1` — self-critique loop
+### `responder_critique.v1` - self-critique loop
 
 - **Role:** review a draft flight reply and decide whether it needs
   revision.
@@ -180,15 +180,15 @@ same input produces the same output run-to-run.
 These two files document conventions inlined into each operational
 prompt:
 
-- **Persona** — voice rules, tone scaling per node, anti-patterns to
+- **Persona** - voice rules, tone scaling per node, anti-patterns to
   avoid (no "Great choice!", no marketing language, lists for 2+ items,
   etc.)
-- **Safety** — refusal phrasing, prompt-injection handling, honesty
+- **Safety** - refusal phrasing, prompt-injection handling, honesty
   conventions ("I don't have that info" is always available; one
   question at a time; no fake authority)
 
 They're reference docs, not loaded prompts. Each operational prompt
 incorporates the conventions natively rather than including the shared
-files at runtime — keeps every prompt self-readable in isolation, which
+files at runtime - keeps every prompt self-readable in isolation, which
 matters during eval iteration when you're staring at one prompt at a
 time.

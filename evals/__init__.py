@@ -1,1 +1,1 @@
-"""Evaluation suite — golden + adversarial sets, harness, results."""
+"""Evaluation suite - golden + adversarial sets, harness, results."""

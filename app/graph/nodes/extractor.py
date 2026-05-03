@@ -1,4 +1,4 @@
-"""Extractor graph node — natural language → ``FlightQuery`` + memory merge.
+"""Extractor graph node - natural language → ``FlightQuery`` + memory merge.
 
 Two responsibilities, in order:
 
@@ -10,7 +10,7 @@ Two responsibilities, in order:
 2. **Apply the deterministic merge** (:func:`app.memory.conversation.merge_query`)
    as a safety net. The merge handles the cases where the model emitted
    ``None`` for fields the user didn't restate but clearly still wants
-   ("make it cheaper" — destination etc. should carry over).
+   ("make it cheaper" - destination etc. should carry over).
 
 The merge is logged in the trace so a reviewer can see when memory
 inheritance kicked in vs. when the model's output was used as-is.

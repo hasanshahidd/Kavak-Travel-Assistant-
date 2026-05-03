@@ -1,4 +1,4 @@
-"""Embeddings client tests — focus on the deterministic mock.
+"""Embeddings client tests - focus on the deterministic mock.
 
 The OpenAI implementation requires network + a key, so it is exercised
 implicitly by the opt-in integration test in ``test_rag_integration.py``.

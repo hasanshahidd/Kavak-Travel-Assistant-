@@ -1,4 +1,4 @@
-"""Prompt loader — turn versioned ``.md`` files into first-class artifacts.
+"""Prompt loader - turn versioned ``.md`` files into first-class artifacts.
 
 Every prompt in this project lives in ``app/prompts/<id>.md`` with this shape:
 
@@ -17,13 +17,13 @@ Every prompt in this project lives in ``app/prompts/<id>.md`` with this shape:
 
 The loader does three things the rubric cares about:
 
-1. **Validate frontmatter** — required fields are typed via Pydantic so a
+1. **Validate frontmatter** - required fields are typed via Pydantic so a
    typo in ``temperature`` fails at load time, not at the model call.
-2. **Hash the body** — SHA-256 of just the body (not frontmatter), so
+2. **Hash the body** - SHA-256 of just the body (not frontmatter), so
    tweaking ``notes`` doesn't churn the hash. Trace events carry this hash
    alongside ``prompt_id``, which means we can prove which exact wording
    produced any given output.
-3. **Render variables** — small Mustache-style ``{{var}}`` substitution.
+3. **Render variables** - small Mustache-style ``{{var}}`` substitution.
    Anything fancier (loops, conditionals) belongs in the prompt itself, not
    in templating logic, so we deliberately avoid Jinja.
 """
@@ -76,7 +76,7 @@ class PromptFrontmatter(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# PromptTemplate — frontmatter + body + hash, ready to render
+# PromptTemplate - frontmatter + body + hash, ready to render
 # ---------------------------------------------------------------------------
 
 
@@ -95,7 +95,7 @@ class PromptTemplate:
     def render(self, variables: dict[str, Any]) -> str:
         """Replace ``{{name}}`` markers with stringified values.
 
-        Missing variables raise — silent omission is the kind of bug that
+        Missing variables raise - silent omission is the kind of bug that
         produces "model said something weird" tickets days later. Required
         prompt variables are explicit by construction.
         """
@@ -161,7 +161,7 @@ def parse_prompt_text(text: str, *, source: str | Path = "<string>") -> tuple[Pr
 
 
 def _hash_body(body: str) -> str:
-    """SHA-256 of the body, first 12 hex chars — short enough to log, long enough to be unique."""
+    """SHA-256 of the body, first 12 hex chars - short enough to log, long enough to be unique."""
     return hashlib.sha256(body.encode("utf-8")).hexdigest()[:12]
 
 

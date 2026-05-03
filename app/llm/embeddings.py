@@ -2,9 +2,9 @@
 
 Provider-agnostic, mirroring the LLM client design. Two implementations:
 
-* :class:`OpenAIEmbeddingsClient` — production. Uses ``text-embedding-3-small``
-  (1536 dims, ~$0.02 per million tokens — costs cents to embed our entire KB).
-* :class:`MockEmbeddingsClient` — deterministic hash-based bag-of-words for
+* :class:`OpenAIEmbeddingsClient` - production. Uses ``text-embedding-3-small``
+  (1536 dims, ~$0.02 per million tokens - costs cents to embed our entire KB).
+* :class:`MockEmbeddingsClient` - deterministic hash-based bag-of-words for
   unit tests and offline demos. Same input → same vector, and texts sharing
   words have non-zero cosine similarity, so retrieval threshold tests work
   without making API calls.
@@ -73,7 +73,7 @@ class OpenAIEmbeddingsClient:
 
 
 # ---------------------------------------------------------------------------
-# Mock implementation — deterministic hash-based BoW
+# Mock implementation - deterministic hash-based BoW
 # ---------------------------------------------------------------------------
 
 
@@ -100,7 +100,7 @@ class MockEmbeddingsClient:
         vectors: list[list[float]] = []
         for text in texts:
             v = [0.0] * EMBEDDING_DIM
-            # Lowercase + simple word split. Good enough — tests don't need stemming.
+            # Lowercase + simple word split. Good enough - tests don't need stemming.
             for word in text.lower().split():
                 stripped = word.strip(".,!?;:()[]{}\"'-")
                 if not stripped:

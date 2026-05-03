@@ -1,4 +1,4 @@
-"""Pydantic v2 contracts — strict typed boundaries between layers."""
+"""Pydantic v2 contracts - strict typed boundaries between layers."""
 
 from app.schemas.chat import ChatMessage, ChatRequest, ChatResponse, TraceEvent
 from app.schemas.flight import (

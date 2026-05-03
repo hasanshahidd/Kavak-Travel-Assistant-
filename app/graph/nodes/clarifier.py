@@ -1,4 +1,4 @@
-"""Clarifier graph node — asks ONE targeted question for missing fields."""
+"""Clarifier graph node - asks ONE targeted question for missing fields."""
 
 from __future__ import annotations
 
@@ -21,7 +21,7 @@ def clarify(
 ) -> str:
     """Generate a single-question clarification reply.
 
-    Output is plain text — no schema. The clarifier prompt enforces the
+    Output is plain text - no schema. The clarifier prompt enforces the
     one-question rule.
     """
     started = time.perf_counter()

@@ -1,4 +1,4 @@
-"""Conversation memory + override semantics — the D4 differentiator.
+"""Conversation memory + override semantics - the D4 differentiator.
 
 Most chat agents fail multi-turn refinement in one of two ways:
 
@@ -17,14 +17,14 @@ The contract:
   returns the merged query. It detects topic switches (destination changed
   to a different city) and returns the new query unchanged in that case.
   For non-switches, ``None`` fields in the new query inherit the prior
-  value — covering the "make it cheaper" pattern where the extractor only
+  value - covering the "make it cheaper" pattern where the extractor only
   fills the field the user actually changed.
 
 * :class:`Conversation` is the per-session memory store. It holds the
   message log, the latest :class:`FlightQuery`, and produces a textual
   ``summary()`` that the extractor prompt sees as ``conversation_summary``.
 
-The override semantics are tested in ``tests/test_memory_override.py`` —
+The override semantics are tested in ``tests/test_memory_override.py`` -
 five scenarios covering the spec's worst failure modes.
 """
 
@@ -37,7 +37,7 @@ from app.schemas.chat import ChatMessage
 from app.schemas.flight import FlightQuery
 from app.utils.airports import expand
 
-# Sliding window size — older messages get summarised. Six is a sweet spot:
+# Sliding window size - older messages get summarised. Six is a sweet spot:
 # enough to recall a 3-turn refinement loop, short enough to keep prompt
 # tokens bounded.
 DEFAULT_WINDOW = 6
@@ -49,7 +49,7 @@ DEFAULT_WINDOW = 6
 
 
 def _is_same_destination(prior: str | None, new: str | None) -> bool:
-    """Loose equality — uses the airport alias map so 'Tokyo' == 'NRT' == 'HND'.
+    """Loose equality - uses the airport alias map so 'Tokyo' == 'NRT' == 'HND'.
 
     Both None → trivially same. One None and one set → different. Else: do
     their IATA expansions intersect?
@@ -71,7 +71,7 @@ def _is_same_destination(prior: str | None, new: str | None) -> bool:
 def is_topic_switch(prior: FlightQuery | None, new: FlightQuery) -> bool:
     """True iff the new query targets a different destination than the prior.
 
-    A bare ``None`` destination on the new query is *not* a switch — the user
+    A bare ``None`` destination on the new query is *not* a switch - the user
     might be refining without re-naming the destination ("make it cheaper").
     Only an explicit, *different* destination triggers a reset.
     """
@@ -89,7 +89,7 @@ def is_topic_switch(prior: FlightQuery | None, new: FlightQuery) -> bool:
 
 # Fields whose ``None`` in the new query means "inherit from prior".
 # Anything *not* in this list (e.g. ``needs_clarification``, ``scratchpad``)
-# always takes the new value — those are per-turn signals, not user
+# always takes the new value - those are per-turn signals, not user
 # preferences worth preserving.
 _INHERITABLE_FIELDS: tuple[str, ...] = (
     "origin",
@@ -109,7 +109,7 @@ _INHERITABLE_FIELDS: tuple[str, ...] = (
 
 # Fields where "empty list / False / no preference" should inherit prior
 # preferences if the user didn't restate them. Distinguishes "unset" from
-# "explicitly cleared" — the extractor produces False for booleans by
+# "explicitly cleared" - the extractor produces False for booleans by
 # default, so a False here doesn't mean "user said no".
 _LIST_FIELDS: tuple[str, ...] = (
     "preferred_airlines",
@@ -131,7 +131,7 @@ def merge_query(prior: FlightQuery | None, new: FlightQuery) -> FlightQuery:
     3. **Refinement** → fill ``None`` / empty fields on ``new`` from ``prior``.
        Explicit values on ``new`` always win; only unspecified fields
        inherit. This covers "make it cheaper", "actually move it to
-       September", "what about September instead" — phrasings where the
+       September", "what about September instead" - phrasings where the
        extractor only emits the field the user actually changed.
     """
     if prior is None:
@@ -153,7 +153,7 @@ def merge_query(prior: FlightQuery | None, new: FlightQuery) -> FlightQuery:
 
         # Boolean preferences default to False. We can't distinguish
         # "user didn't mention overnights" from "user said overnights are fine"
-        # at the schema level — convention: prior True wins unless new is
+        # at the schema level - convention: prior True wins unless new is
         # explicitly False AND prior was False (no change). The extractor's
         # job is to emit True only when the user said so; otherwise leave it
         # at the default. So a False on new + True on prior → inherit True.
@@ -179,7 +179,7 @@ def merge_query(prior: FlightQuery | None, new: FlightQuery) -> FlightQuery:
 class Conversation:
     """Per-session memory. Holds messages, prior query, and a textual summary.
 
-    Not async-safe out of the box — add a lock if you ever share a single
+    Not async-safe out of the box - add a lock if you ever share a single
     Conversation across coroutines. Single-user CLI / Streamlit usage
     doesn't need it.
     """
@@ -231,7 +231,7 @@ class Conversation:
         return list(self._messages)
 
     def windowed_messages(self) -> list[ChatMessage]:
-        """Most-recent ``window`` messages — what we feed back to prompts."""
+        """Most-recent ``window`` messages - what we feed back to prompts."""
         return list(self._messages)[-self._window :]
 
     def summary(self) -> str:

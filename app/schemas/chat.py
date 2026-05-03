@@ -1,4 +1,4 @@
-"""Conversation DTOs — request / response / trace shapes.
+"""Conversation DTOs - request / response / trace shapes.
 
 Used at the boundary between the UI layer (``main.py`` / ``streamlit_app.py``)
 and the agent. Kept distinct from internal domain schemas so the public
@@ -21,7 +21,7 @@ class ChatMessage(BaseModel):
     """A single message in the conversation history.
 
     Roles are ``user`` for inbound text and ``assistant`` for the agent's
-    final reply. Internal node outputs are NOT messages — they live in the
+    final reply. Internal node outputs are NOT messages - they live in the
     trace.
     """
 
@@ -35,7 +35,7 @@ class ChatMessage(BaseModel):
 
 
 class ChatRequest(BaseModel):
-    """Inbound — a single user message."""
+    """Inbound - a single user message."""
 
     model_config = ConfigDict(extra="forbid")
 
@@ -49,7 +49,7 @@ class ChatRequest(BaseModel):
 
 
 class ChatResponse(BaseModel):
-    """Outbound — the user-facing reply plus structured side-channels."""
+    """Outbound - the user-facing reply plus structured side-channels."""
 
     model_config = ConfigDict(extra="forbid")
 
@@ -81,7 +81,7 @@ class TraceEvent(BaseModel):
         None, description="Prompt id from frontmatter, e.g. 'extractor.v3'."
     )
     prompt_hash: str | None = Field(
-        None, description="SHA-256 of prompt body — ties trace to exact wording."
+        None, description="SHA-256 of prompt body - ties trace to exact wording."
     )
     latency_ms: float = Field(..., ge=0)
     tokens_in: int = Field(0, ge=0)

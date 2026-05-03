@@ -1,4 +1,4 @@
-"""Utils tests — dates, airports, alliances."""
+"""Utils tests - dates, airports, alliances."""
 
 from __future__ import annotations
 
@@ -108,7 +108,7 @@ def test_country_for_city_maps_known_cities() -> None:
 def test_country_name_resolves_to_country_airports() -> None:
     """Country names should expand to every airport in that country.
 
-    Real user phrasing: "flights from UAE to Tokyo" — UAE is the country,
+    Real user phrasing: "flights from UAE to Tokyo" - UAE is the country,
     not a city. The resolver makes that work without forcing the user to
     know which IATA they want.
     """

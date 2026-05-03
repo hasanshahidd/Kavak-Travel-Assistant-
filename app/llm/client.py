@@ -5,19 +5,19 @@ LLM vendor. Graph nodes call ``client.complete(prompt=...)`` and never
 import ``openai`` or ``anthropic`` directly. That gives us three properties
 the evaluation rubric cares about:
 
-* **Modularity / code quality** — vendor lock-in is contained to one file.
-* **Reliability** — retry, seed, structured-output validation are uniform
+* **Modularity / code quality** - vendor lock-in is contained to one file.
+* **Reliability** - retry, seed, structured-output validation are uniform
   no matter which provider answers.
-* **Reviewer ergonomics** — ``LLM_PROVIDER=mock`` produces deterministic
+* **Reviewer ergonomics** - ``LLM_PROVIDER=mock`` produces deterministic
   canned responses without any API key, so the demo runs offline.
 
 Three implementations ship:
 
-* :class:`OpenAIClient`     — production path; uses Responses-style chat
+* :class:`OpenAIClient`     - production path; uses Responses-style chat
   completion via ``instructor`` for typed Pydantic outputs.
-* :class:`MockClient`       — registry-driven canned responses for tests
+* :class:`MockClient`       - registry-driven canned responses for tests
   and offline demos.
-* :class:`AnthropicClient`  — adapter stub kept thin; activated only when
+* :class:`AnthropicClient`  - adapter stub kept thin; activated only when
   ``LLM_PROVIDER=anthropic``.
 
 Every call returns an :class:`LLMResponse` carrying the parsed payload, the
@@ -47,7 +47,7 @@ T = TypeVar("T", bound=BaseModel)
 
 
 # ---------------------------------------------------------------------------
-# Pricing — USD per 1M tokens. Update as vendor pricing changes.
+# Pricing - USD per 1M tokens. Update as vendor pricing changes.
 # Conservative defaults for unknown models avoid silent under-reporting.
 # ---------------------------------------------------------------------------
 
@@ -110,11 +110,11 @@ class LLMResponse(Generic[T]):
 
 
 class LLMError(Exception):
-    """Base error from the LLM layer — swallows vendor-specific exceptions."""
+    """Base error from the LLM layer - swallows vendor-specific exceptions."""
 
 
 class LLMTransientError(LLMError):
-    """Rate limits, timeouts, 5xx — safe to retry."""
+    """Rate limits, timeouts, 5xx - safe to retry."""
 
 
 class LLMValidationError(LLMError):
@@ -122,7 +122,7 @@ class LLMValidationError(LLMError):
 
 
 # ---------------------------------------------------------------------------
-# Protocol — every implementation must satisfy this
+# Protocol - every implementation must satisfy this
 # ---------------------------------------------------------------------------
 
 
@@ -253,7 +253,7 @@ def _is_transient(err: Exception) -> bool:
 
 
 # ---------------------------------------------------------------------------
-# Mock implementation — registry of canned responses
+# Mock implementation - registry of canned responses
 # ---------------------------------------------------------------------------
 
 
@@ -332,7 +332,7 @@ class MockClient:
 
 
 # ---------------------------------------------------------------------------
-# Anthropic adapter — stubbed; activated only when needed
+# Anthropic adapter - stubbed; activated only when needed
 # ---------------------------------------------------------------------------
 
 

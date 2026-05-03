@@ -37,7 +37,7 @@ not style preferences.
    price OR change dates?") is an issue.
 
 4. **No fabricated availability.** The draft must not claim the bot can
-   "book" or "confirm" — it can only recommend.
+   "book" or "confirm" - it can only recommend.
 
 5. **Tone.** No "Great choice!", "I'd be happy to", or other hollow
    openers. Lean prose, advisor voice.
@@ -49,9 +49,9 @@ not style preferences.
 - Length, as long as it's under ~250 words
 
 # Decision rule
-Set `needs_revision=true` ONLY when at least one of items 1–4 above
+Set `needs_revision=true` ONLY when at least one of items 1-4 above
 fires. Stylistic-only issues from item 5 alone do not trigger revision.
-Be strict but not pedantic — the bar is "would this answer mislead the
+Be strict but not pedantic - the bar is "would this answer mislead the
 user?", not "could this be slightly nicer?".
 
 # Inputs
@@ -74,4 +74,4 @@ user?", not "could this be slightly nicer?".
 Return a `ResponseCritique` JSON object:
 - `needs_revision`: boolean per the decision rule above
 - `issues`: list of short, specific, actionable strings (max 5; empty when needs_revision=false)
-- `confidence`: float 0.0–1.0 reflecting how sure you are about the call
+- `confidence`: float 0.0-1.0 reflecting how sure you are about the call

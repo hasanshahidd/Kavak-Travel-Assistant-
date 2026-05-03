@@ -6,12 +6,12 @@ JSON line per event to ``{trace_dir}/{YYYY-MM-DD}/{turn_id}.jsonl``.
 
 Why this matters for the rubric:
 
-* **Code Quality** — observability is built-in, not bolted on. A reviewer
+* **Code Quality** - observability is built-in, not bolted on. A reviewer
   can replay any turn from disk.
-* **Conversational Design** — the Streamlit sidebar reads these events
+* **Conversational Design** - the Streamlit sidebar reads these events
   back to render the live "agent reasoning" panel, which lets the user
   understand fallbacks instead of being surprised by them.
-* **Creativity & Initiative** — PII redaction and per-turn cost rollups
+* **Creativity & Initiative** - PII redaction and per-turn cost rollups
   signal production-mindedness most submissions skip.
 """
 
@@ -32,7 +32,7 @@ from app.schemas.chat import TraceEvent
 # PII redaction
 # ---------------------------------------------------------------------------
 
-# Compiled once. Patterns are intentionally conservative — we'd rather
+# Compiled once. Patterns are intentionally conservative - we'd rather
 # under-redact a private value than mangle the trace, but each one targets
 # a class of identifier a reviewer might paste in unintentionally.
 
@@ -169,7 +169,7 @@ class Tracer:
         return round(sum(e.latency_ms for e in self.events), 2)
 
     def summary(self) -> dict[str, Any]:
-        """Per-turn rollup — used by the Streamlit sidebar header."""
+        """Per-turn rollup - used by the Streamlit sidebar header."""
         return {
             "turn_id": self.turn_id,
             "node_count": len(self.events),

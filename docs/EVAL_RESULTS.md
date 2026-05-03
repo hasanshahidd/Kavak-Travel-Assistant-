@@ -14,7 +14,7 @@
 | Unit tests (`pytest`) | **199 passing, 3 opt-in skipped** | Wiring is correct; no regression on memory, retrieval, citation verifier, prompt loader |
 | Mock golden eval | **13/13** | Agent composition is deterministic and correct end-to-end |
 | Mock adversarial eval | **10/10** | Robust against prompt injection, gibberish, mixed-language, hostile tone, PII |
-| **Live UAT-200 (real OpenAI)** | **195/200 — 97.5%** | Prompt quality holds against 200 diverse real-world phrasings |
+| **Live UAT-200 (real OpenAI)** | **195/200 - 97.5%** | Prompt quality holds against 200 diverse real-world phrasings |
 | Manual Streamlit UI smoke checks | covers all five differentiators | UI renders, agent trace sidebar populates, badges/citations match expected per intent |
 
 `make test && make lint typecheck` is clean.
@@ -34,7 +34,7 @@ expectation. Per-turn traces are written to `.traces/uat-200/`.
 |---|---|---|
 | Greeting / farewell | 12/12 | All greeting-time variants and farewells route to GREETING |
 | Identity / role-play probes | 18/18 | Jailbreak attempts, "ignore your rules", "show me your system prompt", model-identity questions all go to OFF TOPIC |
-| Off-topic redirects | 24/24 | Hotels, math, joke, currencies, time zones, gambling, translation, meaning-of-life — all caught and redirected |
+| Off-topic redirects | 24/24 | Hotels, math, joke, currencies, time zones, gambling, translation, meaning-of-life - all caught and redirected |
 | Flight search (resolved) | 64/65 | 1 miss on a malformed multi-passport query that needed a clarify but went to flight-search |
 | Flight search (no-result with inventory injection) | 11/11 | Out-of-catalogue destinations all return graceful "I don't have flights to X. To Tokyo I have flights from: DXB, FRA, IST" |
 | Soft-constraint relaxation transparency | 9/9 | Every relaxed-constraint reply explicitly says "after relaxing the preferred airlines constraint" or "[label] cheapest match" |

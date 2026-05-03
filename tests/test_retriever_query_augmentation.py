@@ -2,12 +2,12 @@
 
 Three augmentations matter for retrieval quality:
 
-1. **City→country expansion** — "Tokyo" → "Tokyo (Japan)" so KB chunks
+1. **City→country expansion** - "Tokyo" → "Tokyo (Japan)" so KB chunks
    titled by country still match user phrasings by city.
-2. **Topic-keyword prefix** — "what items are restricted?" embeds
+2. **Topic-keyword prefix** - "what items are restricted?" embeds
    closer to the baggage-policy doc than the refund-policy doc by
    prepending "baggage:" to the query.
-3. **Conversation summary stitching** — short follow-ups inherit
+3. **Conversation summary stitching** - short follow-ups inherit
    topical signal from the prior turn.
 
 These tests pin the building blocks; the end-to-end behaviour is
@@ -23,7 +23,7 @@ from app.graph.nodes.retriever import (
 )
 
 # ---------------------------------------------------------------------------
-# Topic detection — bridges keyword → KB-doc gap
+# Topic detection - bridges keyword → KB-doc gap
 # ---------------------------------------------------------------------------
 
 
@@ -75,7 +75,7 @@ def test_expand_city_to_country_idempotent_on_country() -> None:
 
 
 # ---------------------------------------------------------------------------
-# Combined query builder — all augmentations layered
+# Combined query builder - all augmentations layered
 # ---------------------------------------------------------------------------
 
 
